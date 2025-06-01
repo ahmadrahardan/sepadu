@@ -65,9 +65,9 @@
                                 <div>
                                     <div class="flex gap-3">
                                         <p class="text-sm text-white/70"><i class="fa fa-calendar mr-1"></i>
-                                            {{ $item->tanggal }}</p>
+                                            {{ $jadwal->tanggal }}</p>
                                         <p class="text-sm text-white/70"><i class="fas fa-clock mr-1"></i>
-                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}</p>
+                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $jadwal->pukul)->format('H:i') }}</p>
                                     </div>
                                     <h4 class="text-lg font-semibold">{{ $jadwal->topik }}</h4>
                                     <p class="text-sm text-white/70"><i
@@ -79,7 +79,7 @@
                                                 topik: '{{ $jadwal->topik }}',
                                                 deskripsi: '{{ $jadwal->deskripsi }}',
                                                 tanggal: '{{ $jadwal->tanggal }}',
-                                                pukul: '{{ $item->pukul }}',
+                                                pukul: '{{ $jadwal->pukul }}',
                                                 lokasi: '{{ $jadwal->lokasi }}',
                                                 kuota: '{{ $jadwal->kuota }}'
                                             })"

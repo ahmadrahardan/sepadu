@@ -4,12 +4,12 @@
 @endphp
 
 <header class="fixed top-0 left-0 w-full z-40">
-    <div class="backdrop-blur-md bg-white/10 border-b border-white/30 px-20 py-6 flex justify-between items-center">
+    <div class="bg-gradient-to-b from-slate-900 to-transparent px-20 py-6 flex justify-between items-center">
 
         <!-- Logo -->
         <div class="flex items-center text-white text-xl font-semibold">
             <a href="{{ route('V_Dashboard') }}">
-                <img src="{{ asset('assets/logo.png') }}" alt="Simbako Logo" class="h-8">
+                <img src="{{ asset('assets/SepaduWhite.png') }}" alt="Sepadu Logo" class="h-8">
             </a>
         </div>
 
