@@ -26,13 +26,25 @@
             }
         }
     </script>
-    <style>[x-cloak] { display: none !important; }</style>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <title>Sepadu | @yield('title')</title>
 </head>
 
 <body class="font-Poppins">
+    @if (session('success'))
+        <x-alert.success :message="session('success')" />
+    @endif
 
+    @if ($errors->any())
+        <x-alert.error :errors="$errors" />
+    @endif
+    <x-navbar></x-navbar>
     @yield('content')
+    <x-footer></x-footer>
 
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script> --}}
 </body>

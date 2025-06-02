@@ -1,4 +1,4 @@
-@extends('master.public')
+@extends('layouts.app')
 @section('title', 'Dashboard')
 @section('content')
 
@@ -8,9 +8,6 @@
     <section x-data="pengajuanModal" class="font-sans h-[85vh] bg-cover bg-center relative"
         style="background-image: url({{ asset('assets/industry.png') }})">
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
-
-        <!-- Header -->
-        @include('master.navbar')
 
         <!-- Hero Section (optional) -->
         <div class="h-full flex flex-col items-center justify-center text-center text-white relative z-20">
@@ -43,8 +40,4 @@
             </a>
         </div>
     </div>
-
-    <!-- Footer -->
-    @include('master.footer')
-
 @endsection

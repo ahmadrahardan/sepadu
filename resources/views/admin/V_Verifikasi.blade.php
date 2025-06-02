@@ -1,12 +1,9 @@
-@extends('master.public')
-@section('title', 'Pengajuan')
+@extends('layouts.app')
+@section('title', 'Verifikasi')
 @section('content')
 
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center relative"
     style="background-image: url({{ asset('assets/industry.png') }})">
-
-        <!-- Header -->
-        @include('master.navbar')
 
         @if (session('success'))
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" data-success-alert
@@ -194,9 +191,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Footer -->
-        @include('master.footer')
     </section>
     <script>
         document.addEventListener("alpine:init", () => {

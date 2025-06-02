@@ -1,12 +1,9 @@
-@extends('master.public')
+@extends('layouts.app')
 @section('title', 'Jadwal')
 @section('content')
 
     <section x-data="jadwalModal" class="font-sans min-h-screen bg-cover bg-center relative"
         style="background-image: url({{ asset('assets/industry.png') }})">
-
-        <!-- Header -->
-        @include('master.navbar')
 
         <!-- Notifikasi Sukses -->
         @if (session('success'))
@@ -284,9 +281,6 @@
                 </form>
             </div>
         </div>
-
-        <!-- Footer -->
-        @include('master.footer')
     </section>
     <script>
         document.addEventListener("alpine:init", () => {

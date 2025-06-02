@@ -1,12 +1,9 @@
-@extends('master.public')
+@extends('layouts.app')
 @section('title', 'Pelatihan')
 @section('content')
 
     <section x-data="jadwalModal" class="font-sans min-h-screen bg-cover bg-center relative"
         style="background-image: url({{ asset('assets/industry.png') }})">
-
-        <!-- Header -->
-        @include('master.navbar')
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
@@ -201,10 +198,6 @@
                 }
             </style>
         </div>
-
-
-        <!-- Footer -->
-        @include('master.footer')
     </section>
     <script>
         document.addEventListener("alpine:init", () => {

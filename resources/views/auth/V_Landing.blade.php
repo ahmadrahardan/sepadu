@@ -1,4 +1,4 @@
-@extends('master.public')
+@extends('layouts.auth')
 @section('title', 'Homepage')
 @section('content')
 
