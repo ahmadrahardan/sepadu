@@ -12,7 +12,7 @@ class C_Profil extends Controller
 {
     public function profil()
     {
-        return view('master.V_Profil');
+        return view('V_Profil');
     }
 
     public function update(Request $request)

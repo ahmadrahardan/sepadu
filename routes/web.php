@@ -41,7 +41,7 @@ Route::post('/logout', [C_Login::class, 'logout'])->name('logout');
 
 // Route Dashboard
 Route::get('/dashboard', function () {
-    return view('master.V_Dashboard');
+    return view('V_Dashboard');
 })->middleware('auth')->name('V_Dashboard');
 
 // Route Profil

@@ -11,7 +11,7 @@ class C_FAQ extends Controller
     public function faq()
     {
         $data = Faq::latest()->get();
-        return view('master.V_FAQ', compact('data'));
+        return view('V_FAQ', compact('data'));
     }
 
     public function simpan(Request $request)
