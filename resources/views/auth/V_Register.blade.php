@@ -63,14 +63,14 @@
         @endif
 
         <!-- Form content -->
-        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-[800px] relative shadow-xl bg-fit bg-center z-20"
+        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-[800px] relative shadow-xl bg-fit bg-center z-20 m-5"
             style="background-image: url('{{ asset('assets/big_bg.png') }}')">
 
             <!-- Link ke halaman login -->
             <div class="absolute top-4 right-4 text-sm text-gray-600 text-right">
                 <p class="mb-2">Sudah memiliki akun?</p>
                 <a href="login"
-                    class="inline-flex items-center gap-2 border border-brown-700 text-brown-700 px-4 py-1 rounded-full font-semibold hover:bg-brown-100 transition text-sm mr-4 hover:bg-green-700 hover:text-white">
+                    class="inline-flex items-center gap-2 border border-green-700 text-brown-700 px-4 py-1 rounded-full font-semibold hover:bg-brown-100 transition text-sm mr-4 hover:bg-green-700 hover:text-white">
                     Masuk
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

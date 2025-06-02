@@ -6,16 +6,16 @@
     style="background-image: url({{ asset('assets/industry.png') }})">
 
         {{-- Main --}}
-        <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-16 relative z-10 bg-cover bg-center">
+        <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-4 sm:px-6 lg:px-16 relative z-10 bg-cover bg-center">
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- WRAPPER: dua kolom sejajar -->
-            <div class="flex flex-row gap-6 relative z-20">
+            <div class="flex flex-col lg:flex-row gap-6 relative z-20 m-5">
                 <!-- KIRI -->
-                <div class="flex flex-col w-[500px] gap-4">
+                <div class="flex flex-col w-full lg:w-[500px] gap-4">
                     <!-- PROFIL -->
                     <div
-                        class="h-[370px] w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
+                        class="h-[370px] w-full lg:w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
                         <div class="flex flex-col items-center justify-center border-b border-black">
                             <div class="flex flex-col items-center mb-4">
                                 <h2 class="text-2xl font-semibold">Profil</h2>
@@ -96,7 +96,7 @@
 
                 <!-- KANAN -->
                 <div
-                    class="w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
+                    class="w-full lg:w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
                     <div class="flex flex-col items-center mb-8">
                         <h2 class="text-2xl font-semibold">Data Kredensial</h2>
                         @if (!Auth::user()->isAdmin())
