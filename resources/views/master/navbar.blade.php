@@ -4,7 +4,7 @@
 @endphp
 
 <header class="fixed top-0 left-0 w-full z-40">
-    <div class="bg-gradient-to-b from-slate-900 to-transparent px-20 py-6 flex justify-between items-center">
+    <div class=" px-20 py-6 flex justify-between items-center">
 
         <!-- Logo -->
         <div class="flex items-center text-white text-xl font-semibold">
@@ -24,12 +24,10 @@
                 @if($isAdmin)
                     <a href="{{ route('admin.pengajuan') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Pengajuan</a>
                     <a href="{{ route('admin.jadwal') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Jadwal</a>
-                    <a href="{{ route('admin.edukasi') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Edukasi</a>
                 @endif
                 @if(!$isAdmin)
                     <a href="{{ route('V_Pengajuan') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Pengajuan</a>
                     <a href="{{ route('V_Jadwal') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Jadwal</a>
-                    <a href="{{ route('V_Edukasi') }}" class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Edukasi</a>
                 @endif
             @endif
 

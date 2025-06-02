@@ -2,8 +2,8 @@
 @section('title', 'Profil')
 @section('content')
 
-    <section x-data="profilModal" class="font-sans min-h-screen bg-cover bg-center"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+    <section x-data="profilModal" class="font-sans min-h-screen bg-cover bg-center relative"
+    style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
@@ -60,8 +60,7 @@
 
         {{-- Main --}}
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-16 relative z-10 bg-cover bg-center">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent -bottom-0 absolute z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] -bottom-0 absolute">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- WRAPPER: dua kolom sejajar -->
             <div class="flex flex-row gap-6 relative z-20">
@@ -69,27 +68,27 @@
                 <div class="flex flex-col w-[500px] gap-4">
                     <!-- PROFIL -->
                     <div
-                        class="h-[370px] w-[500px] bg-white/10 backdrop-blur-md border border-white/60 rounded-2xl shadow-lg p-6 text-white">
-                        <div class="flex flex-col items-center justify-center border-b border-white">
+                        class="h-[370px] w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
+                        <div class="flex flex-col items-center justify-center border-b border-black">
                             <div class="flex flex-col items-center mb-4">
                                 <h2 class="text-2xl font-semibold">Profil</h2>
                                 @if (!Auth::user()->isAdmin())
-                                    <p class="text-sm">Data profil anda dalam Simbako</p>
+                                    <p class="text-sm">Data profil anda dalam Sepadu</p>
                                 @endif
                             </div>
                             <div class="flex items-center gap-4 mb-4">
-                                <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm">
+                                <div class="w-16 h-16 rounded-full flex border-2 border-black items-center justify-center text-sm">
                                     <img src="{{ asset('assets/avatar.png') }}" alt="">
                                 </div>
                                 <div class="text-xl">{{ Auth::user()->username }}</div>
                             </div>
                         </div>
 
-                        <div class="py-2 border-b border-white flex justify-between">
+                        <div class="py-2 border-b border-black flex justify-between">
                             <span>Nama</span>
                             <span class="ml-auto text-right">{{ Auth::user()->nama }}</span>
                         </div>
-                        <div class="py-2 border-b border-white flex justify-between">
+                        <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor Telepon</span>
                             <span class="ml-auto text-right">{{ Auth::user()->telepon }}</span>
                         </div>
@@ -103,8 +102,8 @@
 
                     <!-- PENGATURAN -->
                     <div
-                        class="w-[500px] bg-white/10 backdrop-blur-md border border-white/60 rounded-2xl p-6 text-white shadow-lg">
-                        <div class="flex flex-col items-center justify-center border-b border-white">
+                        class="w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/bg_formcpy.png') }})">
+                        <div class="flex flex-col items-center justify-center border-b border-black">
                             <h2 class="text-xl font-bold mb-2">Pengaturan</h2>
                         </div>
                         <form action="{{ route('logout') }}" method="POST" class="inline"">
@@ -150,23 +149,23 @@
 
                 <!-- KANAN -->
                 <div
-                    class="w-[500px] bg-white/10 backdrop-blur-md border border-white/60 rounded-2xl p-6 text-white shadow-lg">
+                    class="w-[500px] bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
                     <div class="flex flex-col items-center mb-8">
                         <h2 class="text-2xl font-semibold">Data Kredensial</h2>
                         @if (!Auth::user()->isAdmin())
                             <p class="text-sm">Data penting anda yang telah kami verifikasi</p>
                         @endif
                     </div>
-                    <div class="py-2 border-b border-white flex justify-between">
+                    <div class="py-2 border-b border-black flex justify-between">
                         <span>Email<span class="text-red-500">*</span></span>
                         <span class="ml-auto text-right">{{ Auth::user()->email }}</span>
                     </div>
                     @if (!Auth::user()->isAdmin())
-                        <div class="py-2 border-b border-white flex justify-between">
+                        <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor SIINAS<span class="text-red-500">*</span></span>
                             <span class="ml-auto text-right">{{ Auth::user()->siinas }}</span>
                         </div>
-                        <div class="py-2 border-b border-white flex justify-between">
+                        <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor KBLI<span class="text-red-500">*</span></span>
                             <span class="ml-auto text-right">{{ Auth::user()->kbli }}</span>
                         </div>
@@ -176,7 +175,7 @@
                         <span>Username</span>
                         <span class="ml-auto text-right">{{ Auth::user()->username }}</span>
                     </div>
-                    <div class="py-2 border-b border-white flex justify-between">
+                    <div class="py-2 border-b border-black flex justify-between">
                         <span>Password</span>
                         <span class="ml-auto text-right">********</span>
                     </div>
@@ -190,7 +189,7 @@
                     <!-- Tombol Ubah Profil -->
                     <div class="flex justify-end">
                         <button @click="showUbahProfil = true"
-                            class="bg-white text-black border-2 border-green-900 font-semibold mt-2 py-2 px-4 rounded hover:bg-green-900 hover:border-white hover:text-white transform transition-transform duration-300 hover:scale-110">
+                            class="bg-green-700 text-white font-semibold mt-2 py-2 px-4 rounded hover:bg-green-900 hover:text-white transform transition-transform duration-300 hover:scale-110">
                             Ubah Profil
                         </button>
                     </div>

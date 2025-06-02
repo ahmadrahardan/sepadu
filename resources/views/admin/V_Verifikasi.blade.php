@@ -3,7 +3,7 @@
 @section('content')
 
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center relative"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+    style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
@@ -32,15 +32,14 @@
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent absolute bottom-0 z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] absolute bottom-0">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
-            <div class="bg-white/10 backdrop-blur-md border border-white/60 rounded-2xl shadow-lg p-6 w-full max-w-5xl">
-                <h2 class="text-xl font-semibold text-white pl-4 mb-4">Daftar Registrasi IHT</h2>
-                <div class="overflow-y-auto max-h-[300px] min-h-[300px] px-4 custom-scrollbar">
-                    <table class="min-w-full text-sm text-white">
+            <div class="rounded-2xl bg-cover bg-center p-6 w-full max-w-5xl z-20" style="background-image: url({{ asset('assets/bg.png') }})">
+                <h2 class="text-xl font-semibold text-black pl-4 mb-4">Daftar Registrasi IHT</h2>
+                <div class="overflow-y-auto max-h-[300px] min-h-[430px] px-4 custom-scrollbar">
+                    <table class="min-w-full text-sm text-black">
                         <thead>
-                            <tr class="border-b border-white/60 text-left">
+                            <tr class="border-b border-black text-left">
                                 <th class="p-3">No.</th>
                                 <th class="p-3">Nama</th>
                                 <th class="p-3">Username</th>
@@ -48,7 +47,7 @@
                                 <th class="p-3">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/60">
+                        <tbody class="divide-y divide-black">
                             @forelse ($users as $index => $item)
                                 <tr class="hover:bg-white/10 transition">
                                     <td class="p-3">{{ $index + 1 }}</td>

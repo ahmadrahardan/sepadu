@@ -1,11 +1,11 @@
-<div class="bg-white w-full text-black">
-    <div class="max-w-7xl mx-auto px-6 pb-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="bg-green-100 w-full text-black">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
 
         <div>
             <h2 class="text-2xl font-bold">
                 <img src="{{ asset('assets/Sepadu.png') }}" alt="Sepadu Logo" class="h-14">
             </h2>
-            <p class="mt-3">Jember<br>Indonesia</p>
+            <p class="mt-3">Sistem Pelatihan Terpadu<br>untuk Industri di Kabupaten Jember</p>
             <p class="mt-4 font-semibold">Telepon: <span class="font-normal">+62 82143981626</span></p>
             <p class="font-semibold">Email: <span class="font-normal">sepadu.id@gmail.com</span></p>
         </div>

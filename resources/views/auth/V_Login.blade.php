@@ -3,13 +3,14 @@
 @section('content')
 
     <section class="font-sans h-screen bg-cover bg-center min-h-screen flex items-center justify-center"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
 
         <!-- Header -->
         <header class="absolute top-0 left-0 w-full z-50 px-20 py-6">
             <!-- Logo -->
             <div class="flex items-center text-white text-xl font-semibold">
-                <img src="{{ asset('assets/logo.png') }}" alt="Simbako Logo" class="h-8">
+                <img src="{{ asset('assets/SepaduWhite.png') }}" alt="Sepadu Logo" class="h-8">
             </div>
         </header>
 
@@ -61,7 +62,7 @@
             </div>
         @endif
 
-        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-full max-w-md relative shadow-xl bg-fit bg-center"
+        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-full max-w-md relative shadow-xl bg-fit bg-center z-20"
             style="background-image: url('{{ asset('assets/bg_form.png') }}')">
             <!-- Buat Akun Button -->
             <div class="absolute top-6 right-6 text-xs text-gray-600">

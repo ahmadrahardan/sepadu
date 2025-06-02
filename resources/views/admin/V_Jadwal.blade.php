@@ -3,7 +3,7 @@
 @section('content')
 
     <section x-data="jadwalModal" class="font-sans min-h-screen bg-cover bg-center relative"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
@@ -60,16 +60,15 @@
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-20 px-8 relative z-10">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent absolute bottom-0 z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] absolute bottom-0">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- Box Header Jadwal -->
             <div
-                class="w-full max-w-5xl bg-white/10 border border-white/30 backdrop-blur-md rounded-xl p-6 mb-6 text-white">
+                class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scroll.png') }})">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Jadwal Pelatihan</h3>
-                        <p class="text-sm text-white/80">Temukan jadwal pelatihan sesuai dengan agendamu!</p>
+                        <p class="text-sm text-black">Temukan jadwal pelatihan sesuai dengan agendamu!</p>
                     </div>
                     <!-- Filter Bulan & Tahun + Tambahan Opsi Terbaru -->
                     @php
@@ -77,9 +76,9 @@
                         $currentMonth = now()->month;
                     @endphp
                     <div>
-                        <label class="block text-sm font-light mb-1 text-white">Pilih Bulan & Tahun:</label>
+                        <label class="block text-sm font-light mb-1 text-black">Pilih Bulan & Tahun:</label>
                         <select name="bulan_tahun" x-model="selectedMonthYear" @change="filterByMonthYear"
-                            class="bg-green-600 text-white border border-white/40 px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                            class="bg-green-600 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
 
                             <!-- Opsi Terbaru -->
                             <option value="terbaru" {{ request('bulan', 'terbaru') === 'terbaru' ? 'selected' : '' }}>
@@ -103,7 +102,7 @@
             </div>
 
             <!-- Container Scroll Kartu Pelatihan -->
-            <div class="w-full max-w-5xl h-[240px] overflow-y-auto px-2 custom-scrollbar space-y-4">
+            <div class="w-full max-w-5xl h-[350px] overflow-y-auto px-2 custom-scrollbar space-y-2 z-20">
                 @if ($data->isEmpty())
                     <div class="text-white text-center mt-10 text-lg font-semibold">
                         Tidak ada jadwal untuk bulan ini.
@@ -111,17 +110,17 @@
                 @else
                     @foreach ($data as $item)
                         <div
-                            class="bg-white/10 border border-white/30 backdrop-blur-md h-[110px] rounded-xl p-5 text-white">
+                            class="bg-fit bg-center -md h-[110px] rounded-xl p-5 text-black" style="background-image: url({{ asset('assets/scroll.png') }})">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex gap-3">
-                                        <p class="text-sm text-white/70"><i class="fa fa-calendar mr-1"></i>
+                                        <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
                                             {{ $item->tanggal }}</p>
-                                        <p class="text-sm text-white/70"><i class="fas fa-clock mr-1"></i>
+                                        <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
                                             {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}</p>
                                     </div>
                                     <h4 class="text-lg font-semibold">{{ $item->topik }}</h4>
-                                    <p class="text-sm text-white/70"><i class="fa fa-map-marker mr-1"></i>
+                                    <p class="text-sm text-black"><i class="fa fa-map-marker mr-1"></i>
                                         {{ $item->lokasi }}</p>
                                 </div>
                                 <div class="flex items-center gap-5">

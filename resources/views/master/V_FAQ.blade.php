@@ -7,7 +7,7 @@
     @endphp
 
     <section x-data="faqModal" class="font-sans min-h-screen bg-cover bg-center relative"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+    style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
@@ -64,12 +64,11 @@
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-24 px-8 relative z-10">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent absolute bottom-0 z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] absolute bottom-0">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <div class="border border-white/60 rounded-2xl shadow-lg p-6 w-full bg-fit bg-center max-w-2xl z-20"
                 style="background-image: url({{ asset('assets/big_bg.png') }})">
-                <div class="overflow-y-auto h-[400px] px-6 custom-scrollbar relative text-white font-sans">
+                <div class="overflow-y-auto min-h-[430px] max-h-[300px] px-6 custom-scrollbar relative text-white font-sans">
 
                     <h2 class="text-4xl font-bold text-black text-center mb-6">FAQ</h2>
 
@@ -149,7 +148,7 @@
                 <div class="w-full max-w-2xl mt-4 mx-auto">
                     <div class="flex justify-end">
                         <button @click="showTambahFAQ = true"
-                            class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-lg shadow-md transition z-10">
+                            class="bg-green-500 hover:bg-green-600 text-white  px-6 py-2 rounded-lg shadow-md transition z-10">
                             Tambah
                         </button>
                     </div>
