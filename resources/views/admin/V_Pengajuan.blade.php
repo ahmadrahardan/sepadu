@@ -5,29 +5,6 @@
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center relative"
     style="background-image: url({{ asset('assets/industry.png') }})">
 
-        <!-- Notifikasi Sukses -->
-        @if (session('success'))
-            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" data-success-alert
-                class="fixed bottom-5 right-5 z-50 w-full max-w-sm bg-green-600 text-white rounded-xl p-4 shadow-lg flex items-start gap-3 animate-slide-up transition-all duration-500 ease-in-out">
-
-                <!-- Logo -->
-                <div
-                    class="flex-shrink-0 bg-transparent rounded-full w-14 h-14 flex items-center justify-center overflow-hidden">
-                    <img src="{{ asset('assets/rawlogo.png') }}" alt="Logo" class="h-6 w-6 object-cover">
-                </div>
-
-                <!-- Isi alert -->
-                <div class="flex-grow">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold">Berhasil!</h3>
-                        <button @click="show = false"
-                            class="text-white hover:text-gray-200 text-xl leading-none">&times;</button>
-                    </div>
-                    <p class="text-sm mt-1">{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
-
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
