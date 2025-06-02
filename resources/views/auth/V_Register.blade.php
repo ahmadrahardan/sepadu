@@ -120,9 +120,9 @@
                             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">
                     </div>
                     <div class="w-1/2">
-                        {{-- <label class="block mb-1 text-gray-700 font-medium">Nomor KBLI</label>
+                        <label class="block mb-1 text-gray-700 font-medium">Nomor KBLI</label>
                         <input type="text" name="kbli" placeholder="Nomor KBLI" value="{{ old('kbli') }}"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500"> --}}
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">
                     </div>
                 </div>
 

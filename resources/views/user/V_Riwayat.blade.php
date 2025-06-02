@@ -3,22 +3,21 @@
 @section('content')
 
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-20 px-8 relative z-10">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent absolute bottom-0 z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] absolute bottom-0">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
-            <div class="bg-white/10 backdrop-blur-md border border-white/60 rounded-2xl shadow-lg p-6 w-full max-w-5xl">
-                <h2 class="text-xl font-semibold text-white pl-4 mb-4">Riwayat Pengajuan</h2>
-                <div class="overflow-y-auto max-h-[300px] min-h-[300px] px-4 custom-scrollbar">
-                    <table class="min-w-full text-sm text-white">
+            <div class="bg-cover bg-center rounded-2xl shadow-lg p-6 w-full max-w-5xl z-20" style="background-image: url({{ asset('assets/bg.png') }})">
+                <h2 class="text-xl font-semibold text-black pl-4 mb-4">Riwayat Pengajuan</h2>
+                <div class="overflow-y-auto max-h-[300px] min-h-[400px] px-4 custom-scrollbar">
+                    <table class="min-w-full text-sm text-black">
                         <thead>
-                            <tr class="border-b border-white/60 text-left">
+                            <tr class="border-b border-black text-left">
                                 <th class="p-3">No.</th>
                                 <th class="p-3">Tanggal</th>
                                 <th class="p-3">Kode Pengajuan</th>
@@ -26,7 +25,7 @@
                                 <th class="p-3">Topik</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/60">
+                        <tbody class="divide-y divide-black">
                             @forelse ($data as $index => $item)
                                 <tr class="hover:bg-white/10 transition">
                                     <td class="p-3">{{ $index + 1 }}</td>
@@ -36,7 +35,7 @@
                                             {{ $item->created_at->format('d-m-Y') }}
                                         </div>
                                     </td>
-                                    <td class="p-3">{{ $item->kode }}</td> 
+                                    <td class="p-3">{{ $item->kode }}</td>
                                     <td class="p-3">
                                         <div class="flex items-center gap-2">
                                             @php

@@ -94,20 +94,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-// Route Edukasi
-Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('/edukasi', [C_Edukasi::class, 'edukasi'])->name('V_Edukasi');
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/edukasi', [C_Edukasi::class, 'adminEdukasi'])->name('admin.edukasi');
-    Route::post('/edukasi/simpan', [C_Edukasi::class, 'simpan'])->name('edukasi.simpan');
-    Route::put('/edukasi/{id}', [C_Edukasi::class, 'update'])->name('edukasi.update');
-    Route::delete('/edukasi/{id}', [C_Edukasi::class, 'hapus'])->name('edukasi.hapus');
-});
-
-Route::get('/edukasi/{slug}', [C_Edukasi::class, 'konten'])->middleware(['auth'])->name('edukasi.konten');
-
 // Route Pelatihan
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/pelatihan', [C_Pelatihan::class, 'pelatihan'])->name('V_Pelatihan');

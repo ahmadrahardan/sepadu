@@ -3,31 +3,30 @@
 @section('content')
 
     <section x-data="jadwalModal" class="font-sans min-h-screen bg-cover bg-center relative"
-        style="background-image: url({{ asset('assets/background_1.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Header -->
         @include('master.navbar')
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
-            <div class="h-[5%] w-full bg-gradient-to-t from-slate-950 to-transparent absolute bottom-0 z-10"></div>
-            <img src="{{ asset('assets/Ornament.png') }}" alt="" class="h-[1012px] w-[1440px] absolute bottom-0">
+            <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- Box Header Jadwal -->
-            <div class="w-full max-w-5xl bg-white/10 border border-white/30 backdrop-blur-md rounded-xl p-6 mb-6 text-white">
+            <div class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scroll.png') }})">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Daftar Pelatihan</h3>
-                        <p class="text-sm text-white/80">Temukan pelatihan yang sedang atau telah diikuti</p>
+                        <p class="text-sm text-black">Temukan pelatihan yang sedang atau telah diikuti</p>
                     </div>
                     <div>
                         @php
                             $currentYear = now()->year;
                             $currentMonth = now()->month;
                         @endphp
-                        <label class="block text-sm font-light mb-1 text-white">Pilih Bulan & Tahun:</label>
+                        <label class="block text-sm font-light mb-1 text-black">Pilih Bulan & Tahun:</label>
                         <select name="bulan_tahun" x-model="selectedMonthYear" @change="filterByMonthYear"
-                            class="bg-green-500 text-white border border-white/40 px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                            class="bg-green-600 text-white border border-white/40 px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
 
                             <!-- Opsi Terbaru sebagai default -->
                             <option value="terbaru" {{ request('bulan', 'terbaru') === 'terbaru' ? 'selected' : '' }}>
@@ -52,7 +51,7 @@
             </div>
 
             <!-- Container Scroll Kartu Pelatihan -->
-            <div class="w-full max-w-5xl h-[240px] overflow-y-auto px-2 custom-scrollbar space-y-4">
+            <div class="w-full max-w-5xl h-[350px] overflow-y-auto px-2 custom-scrollbar space-y-2 z-20">
                 @if ($riwayat->isEmpty())
                     <div class="text-white text-center mt-10 text-lg font-semibold">
                         Tidak ada pelatihan yang diikuti pada bulan ini.
@@ -60,17 +59,17 @@
                 @else
                     @foreach ($riwayat as $jadwal)
                         <div
-                            class="bg-white/10 backdrop-blur-md rounded-xl h-[110px] p-5 mb-4 text-white border border-white/30">
+                            class="bg-fit bg-center rounded-xl h-[110px] p-5 mb-4 text-black" style="background-image: url({{ asset('assets/scroll.png') }})">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex gap-3">
-                                        <p class="text-sm text-white/70"><i class="fa fa-calendar mr-1"></i>
+                                        <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
                                             {{ $jadwal->tanggal }}</p>
-                                        <p class="text-sm text-white/70"><i class="fas fa-clock mr-1"></i>
+                                        <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
                                             {{ \Carbon\Carbon::createFromFormat('H:i:s', $jadwal->pukul)->format('H:i') }}</p>
                                     </div>
                                     <h4 class="text-lg font-semibold">{{ $jadwal->topik }}</h4>
-                                    <p class="text-sm text-white/70"><i
+                                    <p class="text-sm text-black"><i
                                             class="fa fa-map-marker mr-1"></i>{{ $jadwal->lokasi }}</p>
                                 </div>
                                 <button

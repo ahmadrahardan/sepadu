@@ -27,7 +27,7 @@
         }
     </script>
     <style>[x-cloak] { display: none !important; }</style>
-    <title>Simbako | @yield('title')</title>
+    <title>Sepadu | @yield('title')</title>
 </head>
 
 <body class="font-Poppins">

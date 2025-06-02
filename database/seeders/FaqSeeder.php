@@ -14,13 +14,13 @@ class FaqSeeder extends Seeder
     public function run(): void
     {
         $pertanyaans = [
-            'Apa itu Simbako?',
-            'Bagaimana cara untuk mengajukan pelatihan terkait tembaku?',
+            'Apa itu Sepadu?',
+            'Bagaimana cara untuk mengajukan pelatihan?',
             'Bagaimana cara untuk mendaftar pelatihan?',
         ];
 
         $jawabans = [
-            'Simbako adalah Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum minus eius numquam necessitatibus accusantium fuga saepe reiciendis omnis voluptatem? Ratione!',
+            'Sepadu adalah Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum minus eius numquam necessitatibus accusantium fuga saepe reiciendis omnis voluptatem? Ratione!',
             'Cara untuk mengajukan pelatihan Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum minus eius numquam necessitatibus accusantium fuga saepe reiciendis omnis voluptatem? Ratione!',
             'Cara untuk mendaftar pelatihan Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum minus eius numquam necessitatibus accusantium fuga saepe reiciendis omnis voluptatem? Ratione!',
         ];
