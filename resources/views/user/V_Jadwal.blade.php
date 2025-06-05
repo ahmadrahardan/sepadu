@@ -15,7 +15,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Jadwal Pelatihan</h3>
-                        <p class="text-sm text-black">Temukan jadwal pelatihan sesuai dengan agendamu!</p>
+                        <p class="text-sm text-black">*Pendaftaran pelatihan ditutup H-1 Pelaksaan Kegiatan!</p>
                     </div>
                     <!-- Filter Bulan & Tahun + Tambahan Opsi Terbaru -->
                     @php
@@ -72,8 +72,20 @@
                                         {{ $item->lokasi }}</p>
                                 </div>
                                 <div class="flex items-center justify-between gap-5">
+                                    @php
+                                        $jadwalTanggal = \Carbon\Carbon::parse($item->tanggal);
+                                        $limitDaftar = $jadwalTanggal->copy()->subDay();
+                                        $today = \Carbon\Carbon::today();
+                                    @endphp
+
                                     @if (in_array($item->id, $sudahDaftar))
-                                        <button disabled class="bg-gray-400 text-white px-4 py-1 rounded-md">Terdaftar</button>
+                                        <button disabled
+                                            class="bg-gray-400 text-white px-4 py-1 rounded-md">Terdaftar</button>
+                                    @elseif ($today->gte($limitDaftar))
+                                        <button disabled
+                                            class="bg-gray-400 text-white px-4 py-1 rounded-md opacity-50 cursor-not-allowed">
+                                            Pendaftaran Ditutup
+                                        </button>
                                     @else
                                         <button @click="openDaftar('{{ $item->id }}')"
                                             class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded-md">Daftar</button>

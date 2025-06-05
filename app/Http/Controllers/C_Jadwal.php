@@ -161,11 +161,17 @@ class C_Jadwal extends Controller
     {
         $validated = $request->validate([
             'jadwal_id' => 'required|exists:jadwal,id',
-            'pendaftar_1' => 'nullable|string|max:64',
-            'pendaftar_2' => 'nullable|string|max:64',
-            'pendaftar_3' => 'nullable|string|max:64',
-            'pendaftar_4' => 'nullable|string|max:64',
-            'pendaftar_5' => 'nullable|string|max:64',
+            'pendaftar_1' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+            'pendaftar_2' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+            'pendaftar_3' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+            'pendaftar_4' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+            'pendaftar_5' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+        ], [
+            'pendaftar_1.regex' => 'Nama pendaftar 1 tidak boleh mengandung angka, tanda +, atau koma.',
+            'pendaftar_2.regex' => 'Nama pendaftar 2 tidak boleh mengandung angka, tanda +, atau koma.',
+            'pendaftar_3.regex' => 'Nama pendaftar 3 tidak boleh mengandung angka, tanda +, atau koma.',
+            'pendaftar_4.regex' => 'Nama pendaftar 4 tidak boleh mengandung angka, tanda +, atau koma.',
+            'pendaftar_5.regex' => 'Nama pendaftar 5 tidak boleh mengandung angka, tanda +, atau koma.',
         ]);
 
         $jumlahPeserta = collect(range(1, 5))
