@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
 
 class C_Login extends Controller
 {
@@ -22,29 +23,40 @@ class C_Login extends Controller
             'password.required' => 'Password belum terisi!',
         ]);
 
-        $credentials = [
-        'username' => $request->username,
-        'password' => $request->password
-    ];
+        $credentials = $request->only('username', 'password');
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+        $admin = Admin::where('username', $credentials['username'])->first();
 
-        // Tambahkan pengecekan status verifikasi
-        if (!Auth::user()->verifikasi) {
-            Auth::logout(); // keluarin user dari session
-            return redirect('/login')->with('failed', 'Akun Anda belum diverifikasi.');
+        if ($admin) {
+            if (Auth::guard('admin')->attempt($credentials)) {
+                // dd('Login admin berhasil');
+                $request->session()->regenerate();
+                session(['guard' => 'admin']);
+                return redirect()->route('V_Dashboard');
+            }
+        } else {
+            if (Auth::guard('web')->attempt($credentials)) {
+                if (!Auth::guard('web')->user()->verifikasi) {
+                    Auth::guard('web')->logout();
+                    return redirect('/login')->with('failed', 'Akun belum diverifikasi.');
+                }
+
+                $request->session()->regenerate();
+                session(['guard' => 'web']);
+                return redirect()->route('V_Dashboard');
+            }
         }
 
-        return redirect()->route('V_Dashboard');
-    }
-
-        return redirect('/login')->with('failed', 'Username atau Password Salah!');
+        return redirect('/login')->with('failed', 'Username atau Password salah!');
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        } elseif (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

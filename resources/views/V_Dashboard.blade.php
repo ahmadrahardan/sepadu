@@ -2,7 +2,11 @@
 @section('title', 'Dashboard')
 @section('content')
 
-@section('content')
+    @php
+        $guard = session('guard');
+        $user = Auth::guard($guard)->user();
+        $isAdmin = $guard === 'admin';
+    @endphp
 
     <!-- Section Background -->
     <section x-data="pengajuanModal" class="font-sans h-[85vh] bg-cover bg-center relative"
@@ -12,14 +16,11 @@
         <!-- Hero Section (optional) -->
         <div class="h-full flex flex-col items-center justify-center text-center text-white relative z-20">
             <div class="text-5xl md:text-7xl font-semibold">Selamat Datang</div>
-            <div class="text-5xl md:text-7xl font-semibold"> {{ Auth::user()->nama }}</div>
+            <div class="text-5xl md:text-7xl font-semibold"> {{ $user->nama }}</div>
         </div>
     </section>
 
     <!-- Cards -->
-    @php
-        $isAdmin = Auth::user()->isAdmin();
-    @endphp
     <div class="bg-green-100">
         <div
             class="-mt-44 w-full max-w-6xl mx-auto px-4 pb-8 relative z-30 flex flex-col md:flex-row justify-center items-center gap-10">

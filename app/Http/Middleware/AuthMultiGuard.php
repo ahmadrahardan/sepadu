@@ -3,24 +3,23 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Mid_Admin
+class AuthMultiGuard
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
-            return $next($request);
+        if (!Auth::guard('web')->check() && !Auth::guard('admin')->check()) {
+            return redirect('/login');
         }
 
-        abort(403, 'Akses ditolak. Halaman hanya untuk admin.');
+        return $next($request);
     }
 }

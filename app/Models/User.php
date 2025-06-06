@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Edukasi;
 use App\Models\Pengajuan;
 use App\Models\Jadwal;
 
@@ -53,19 +52,9 @@ class User extends Authenticatable
         'verifikasi' => 'boolean',
     ];
 
-    public function isAdmin()
-    {
-        return $this->email === 'disperindag@jemberkab.go.id';
-    }
-
     public function pengajuan(): HasMany
     {
         return $this->hasMany(Pengajuan::class);
-    }
-
-    public function edukasi(): HasMany
-    {
-        return $this->hasMany(Edukasi::class);
     }
 
     public function jadwal(): HasMany

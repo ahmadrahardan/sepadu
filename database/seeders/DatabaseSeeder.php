@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Edukasi;
 use App\Models\Jadwal;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             JadwalSeeder::class,
             FaqSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

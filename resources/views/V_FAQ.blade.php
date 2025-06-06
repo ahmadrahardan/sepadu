@@ -3,11 +3,13 @@
 @section('content')
 
     @php
-        $isAdmin = Auth::user()->isAdmin();
+        $guard = session('guard');
+        $user = Auth::guard($guard)->user();
+        $isAdmin = $guard === 'admin';
     @endphp
 
     <section x-data="faqModal" class="font-sans min-h-screen bg-cover bg-center relative"
-    style="background-image: url({{ asset('assets/industry.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-24 px-8 relative z-10">
@@ -176,8 +178,7 @@
                             class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg ml-2">
                             Batal
                         </button>
-                        <button type="submit"
-                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg ml-2">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg ml-2">
                             Update
                         </button>
                     </div>

@@ -2,11 +2,18 @@
 @section('title', 'Profil')
 @section('content')
 
+    @php
+        $guard = session('guard');
+        $user = Auth::guard($guard)->user();
+        $isAdmin = $guard === 'admin';
+    @endphp
+
     <section x-data="profilModal" class="font-sans min-h-screen bg-cover bg-center relative"
-    style="background-image: url({{ asset('assets/industry.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         {{-- Main --}}
-        <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-4 sm:px-6 lg:px-16 relative z-10 bg-cover bg-center">
+        <div
+            class="flex flex-col items-center justify-center min-h-screen pt-16 px-4 sm:px-6 lg:px-16 relative z-10 bg-cover bg-center">
             <div class="h-full w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- WRAPPER: dua kolom sejajar -->
@@ -14,42 +21,43 @@
                 <!-- KIRI -->
                 <div class="flex flex-col w-full lg:w-1/2 gap-4">
                     <!-- PROFIL -->
-                    <div
-                        class="h-[370px] w-full bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
+                    <div class="h-[370px] w-full bg-fit bg-center rounded-2xl p-6 text-black"
+                        style="background-image: url({{ asset('assets/big_bg.png') }})">
                         <div class="flex flex-col items-center justify-center border-b border-black">
                             <div class="flex flex-col items-center mb-4">
                                 <h2 class="text-2xl font-semibold">Profil</h2>
-                                @if (!Auth::user()->isAdmin())
+                                @if (!$isAdmin)
                                     <p class="text-sm">Data profil anda dalam Sepadu</p>
                                 @endif
                             </div>
                             <div class="flex items-center gap-4 mb-4">
-                                <div class="w-16 h-16 rounded-full flex border-2 border-black items-center justify-center text-sm">
+                                <div
+                                    class="w-16 h-16 rounded-full flex border-2 border-black items-center justify-center text-sm">
                                     <img src="{{ asset('assets/avatar.png') }}" alt="">
                                 </div>
-                                <div class="text-xl">{{ Auth::user()->username }}</div>
+                                <div class="text-xl">{{ $user->username }}</div>
                             </div>
                         </div>
 
                         <div class="py-2 border-b border-black flex justify-between">
                             <span>Nama</span>
-                            <span class="ml-auto text-right">{{ Auth::user()->nama }}</span>
+                            <span class="ml-auto text-right">{{ $user->nama }}</span>
                         </div>
                         <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor Telepon</span>
-                            <span class="ml-auto text-right">{{ Auth::user()->telepon }}</span>
+                            <span class="ml-auto text-right">{{ $user->telepon }}</span>
                         </div>
                         <div class="py-2 flex justify-between">
                             <span>Alamat</span>
                             <span class="ml-auto text-right break-words" style="max-width: 250px;">
-                                {{ Auth::user()->alamat }}
+                                {{ $user->alamat }}F
                             </span>
                         </div>
                     </div>
 
                     <!-- PENGATURAN -->
-                    <div
-                        class="flex flex-col w-full bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/bg_formcpy.png') }})">
+                    <div class="flex flex-col w-full bg-fit bg-center rounded-2xl p-6 text-black"
+                        style="background-image: url({{ asset('assets/bg_formcpy.png') }})">
                         <div class="flex flex-col items-center justify-center border-b border-black">
                             <h2 class="text-xl font-bold mb-2">Pengaturan</h2>
                         </div>
@@ -95,38 +103,38 @@
                 </div>
 
                 <!-- KANAN -->
-                <div
-                    class="w-full lg:w-1/2 bg-fit bg-center rounded-2xl p-6 text-black" style="background-image: url({{ asset('assets/big_bg.png') }})">
+                <div class="w-full lg:w-1/2 bg-fit bg-center rounded-2xl p-6 text-black"
+                    style="background-image: url({{ asset('assets/big_bg.png') }})">
                     <div class="flex flex-col items-center mb-8">
                         <h2 class="text-2xl font-semibold">Data Kredensial</h2>
-                        @if (!Auth::user()->isAdmin())
+                        @if (!$isAdmin)
                             <p class="text-sm">Data penting anda yang telah kami verifikasi</p>
                         @endif
                     </div>
                     <div class="py-2 border-b border-black flex justify-between">
                         <span>Email<span class="text-red-500">*</span></span>
-                        <span class="ml-auto text-right">{{ Auth::user()->email }}</span>
+                        <span class="ml-auto text-right">{{ $user->email }}</span>
                     </div>
-                    @if (!Auth::user()->isAdmin())
+                    @if (!$isAdmin)
                         <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor SIINAS<span class="text-red-500">*</span></span>
-                            <span class="ml-auto text-right">{{ Auth::user()->siinas }}</span>
+                            <span class="ml-auto text-right">{{ $user->siinas }}</span>
                         </div>
                         <div class="py-2 border-b border-black flex justify-between">
                             <span>Nomor KBLI<span class="text-red-500">*</span></span>
-                            <span class="ml-auto text-right">{{ Auth::user()->kbli }}</span>
+                            <span class="ml-auto text-right">{{ $user->kbli }}</span>
                         </div>
                     @endif
 
                     <div class="py-2 flex justify-between">
                         <span>Username</span>
-                        <span class="ml-auto text-right">{{ Auth::user()->username }}</span>
+                        <span class="ml-auto text-right">{{ $user->username }}</span>
                     </div>
                     <div class="py-2 border-b border-black flex justify-between">
                         <span>Password</span>
                         <span class="ml-auto text-right">********</span>
                     </div>
-                    @if (!Auth::user()->isAdmin())
+                    @if (!$isAdmin)
                         <div class="text-xs text-red-500 mt-4 mb-4">
                             *Data kredensial tidak dapat diubah karena telah melalui verifikasi data ketika anda melakukan
                             registrasi.
@@ -156,7 +164,7 @@
                 <form action="{{ route('profil.update') }}" method="POST" class="space-y-2">
                     @method('PUT')
                     @csrf
-                    @if (!Auth::user()->isAdmin())
+                    @if (!$isAdmin)
                         <div>
                             <label class="block text-sm font-semibold mb-1">Nama</label>
                             <input type="text" name="nama"
@@ -182,7 +190,7 @@
                             class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                             placeholder="Masukkan Password">
                     </div>
-                    @if (!Auth::user()->isAdmin())
+                    @if (!$isAdmin)
                         <div>
                             <label class="block text-sm font-semibold mb-1">Alamat</label>
                             <textarea name="alamat" rows="2" placeholder="Masukkan alamat"

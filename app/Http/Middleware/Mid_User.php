@@ -16,15 +16,12 @@ class Mid_User
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
 
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        /** @var \App\Models\User|null $user */
-        $user = Auth::user();
-
-        if ($user && !$user->isAdmin()) {
+        if (Auth::guard('web')->check()) {
             return $next($request);
         }
 
-        return abort(403, 'Akses ditolak. Halaman hanya untuk user IHT.');
+        return abort(403, 'Akses ditolak. Halaman hanya untuk user.');
     }
 }
