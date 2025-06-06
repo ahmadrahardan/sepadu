@@ -11,7 +11,7 @@
 
             <!-- Box Header Jadwal -->
             <div
-                class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scroll.png') }})">
+                class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scrolll.png') }})">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Jadwal Pelatihan</h3>
@@ -58,8 +58,8 @@
                     @foreach ($data as $item)
                         <!-- Simulasi 5 card, akan scroll -->
                         <div
-                            class="bg-fit bg-center h-[110px] rounded-xl p-5 text-black" style="background-image: url({{ asset('assets/scroll.png') }})">
-                            <div class="flex items-center justify-between">
+                            class="bg-fit bg-center h-[110px] rounded-xl p-5 text-black" style="background-image: url({{ asset('assets/scrolll.png') }})">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 <div>
                                     <div class="flex gap-3">
                                         <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
@@ -67,8 +67,8 @@
                                         <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
                                             {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}</p>
                                     </div>
-                                    <h4 class="text-lg font-semibold">{{ $item->topik }}</h4>
-                                    <p class="text-sm text-black"><i class="fa fa-map-marker mr-1"></i>
+                                    <h4 class="text-lg font-semibold truncate">{{ $item->topik }}</h4>
+                                    <p class="text-sm text-black break-words"><i class="fa fa-map-marker mr-1"></i>
                                         {{ $item->lokasi }}</p>
                                 </div>
                                 <div class="flex items-center justify-between gap-5">

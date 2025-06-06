@@ -10,7 +10,7 @@
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <div class="rounded-2xl bg-cover bg-center p-6 w-full max-w-5xl z-20" style="background-image: url({{ asset('assets/bg.png') }})">
-                <h2 class="text-xl font-semibold text-black pl-4 mb-4">Daftar Registrasi IHT</h2>
+                <h2 class="text-xl font-semibold text-black pl-4 mb-4">Daftar Registrasi</h2>
                 <div class="overflow-y-auto max-h-[300px] min-h-[430px] px-4 custom-scrollbar">
                     <table class="min-w-full text-sm text-black">
                         <thead>

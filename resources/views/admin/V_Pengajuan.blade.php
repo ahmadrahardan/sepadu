@@ -11,8 +11,8 @@
 
             <div class="bg-cover bg-center rounded-2xl p-6 w-full z-20 max-w-5xl" style="background-image: url({{ asset('assets/bg.png') }})">
                 <div class="flex justify-between">
-                    <h2 class="text-xl font-semibold text-black pl-4 mb-4">Pengajuan Pelatihan</h2>
-                    <div class="flex justify-end mb-4 pr-4">
+                    <h2 class="text-xl font-semibold text-black pl-4 mb-4 mr-1">Pengajuan Pelatihan</h2>
+                    <div class="flex justify-end mb-4  pr-4">
                         <select x-model="selectedStatus" @change="filterByStatus"
                             class="bg-green-600 text-white px-4 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
                             <option value="">Semua Status</option>

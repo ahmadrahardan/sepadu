@@ -62,7 +62,7 @@
             </div>
         @endif
 
-        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-full max-w-md relative shadow-xl bg-fit bg-center z-20"
+        <div class="bg-white/70 backdrop-blur-md rounded-3xl p-10 w-full max-w-md relative shadow-xl bg-fit bg-center z-20 m-5"
             style="background-image: url('{{ asset('assets/bg_form.png') }}')">
             <!-- Buat Akun Button -->
             <div class="absolute top-6 right-6 text-xs text-gray-600">

@@ -10,7 +10,7 @@
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- Box Header Jadwal -->
-            <div class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scroll.png') }})">
+            <div class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scrolll.png') }})">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Daftar Pelatihan</h3>
@@ -56,8 +56,8 @@
                 @else
                     @foreach ($riwayat as $jadwal)
                         <div
-                            class="bg-fit bg-center rounded-xl h-[110px] p-5 mb-4 text-black" style="background-image: url({{ asset('assets/scroll.png') }})">
-                            <div class="flex items-center justify-between">
+                            class="bg-fit bg-center rounded-xl h-[110px] p-5 mb-4 text-black" style="background-image: url({{ asset('assets/scrolll.png') }})">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 <div>
                                     <div class="flex gap-3">
                                         <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
@@ -65,8 +65,8 @@
                                         <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
                                             {{ \Carbon\Carbon::createFromFormat('H:i:s', $jadwal->pukul)->format('H:i') }}</p>
                                     </div>
-                                    <h4 class="text-lg font-semibold">{{ $jadwal->topik }}</h4>
-                                    <p class="text-sm text-black"><i
+                                    <h4 class="text-lg font-semibold truncate">{{ $jadwal->topik }}</h4>
+                                    <p class="text-sm text-black break-words"><i
                                             class="fa fa-map-marker mr-1"></i>{{ $jadwal->lokasi }}</p>
                                 </div>
                                 <button
