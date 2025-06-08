@@ -31,7 +31,7 @@ class C_FAQ extends Controller
         $validated = $request->validate($rules, $messages);
 
         Faq::create([
-            'user_id' => auth()->id() ?? 1,
+            'user_id' => getUserId(),
             'pertanyaan' => $validated['pertanyaan'],
             'jawaban' => $validated['jawaban'],
         ]);

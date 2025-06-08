@@ -8,7 +8,6 @@ use App\Http\Controllers\C_Riwayat;
 use App\Http\Controllers\C_Profil;
 use App\Http\Controllers\C_Verifikasi;
 use App\Http\Controllers\C_Jadwal;
-use App\Http\Controllers\C_Edukasi;
 use App\Http\Controllers\C_FAQ;
 use App\Http\Controllers\C_Pelatihan;
 use App\Http\Controllers\DokumenController;

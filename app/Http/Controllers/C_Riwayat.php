@@ -9,7 +9,7 @@ class C_Riwayat extends Controller
 {
     public function riwayat()
     {
-        $data = Pengajuan::where('user_id', auth()->id())
+        $data = Pengajuan::where('user_id', getUserId())
             ->whereIn('status', ['Disetujui', 'Ditolak'])
             ->orderBy('created_at', 'desc')
             ->get();

@@ -12,7 +12,7 @@ class C_Pelatihan extends Controller
     public function pelatihan(Request $request)
     {
         $bulan = $request->get('bulan', 'terbaru');
-        $userId = auth()->id();
+        $userId = getUserId();
 
         $query = Jadwal::whereHas('pendaftaran', function ($q) use ($userId) {
             $q->where('user_id', $userId);

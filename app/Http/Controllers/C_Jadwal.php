@@ -32,7 +32,7 @@ class C_Jadwal extends Controller
 
         $data = $query->get();
 
-        $userId = auth()->id();
+        $userId = getUserId();
         $sudahDaftar = \App\Models\Pendaftaran::where('user_id', $userId)
             ->pluck('jadwal_id')
             ->toArray();
@@ -91,7 +91,7 @@ class C_Jadwal extends Controller
         $validated = $request->validate($rules, $messages);
 
         Jadwal::create([
-            'user_id' => auth()->id() ?? 1,
+            'user_id' => getUserId(),
             'topik' => $validated['topik'],
             'deskripsi' => $validated['deskripsi'],
             'tanggal' => $validated['tanggal'],
@@ -199,7 +199,7 @@ class C_Jadwal extends Controller
 
                 // Simpan pendaftaran
                 $pendaftaran = \App\Models\Pendaftaran::create([
-                    'user_id' => auth()->id(),
+                    'user_id' => getUserId(),
                     'jadwal_id' => $jadwal->id,
                 ]);
 

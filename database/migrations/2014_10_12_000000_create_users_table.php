@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('telepon')->nullable();
-            $table->string('siinas')->nullable();
-            $table->string('kbli')->nullable();
-            $table->string('alamat')->nullable();
+            $table->string('telepon');
+            $table->string('siinas');
+            $table->string('kbli');
+            $table->string('alamat');
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('verifikasi')->default(false);
             $table->rememberToken();

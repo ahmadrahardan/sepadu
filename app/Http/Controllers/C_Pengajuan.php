@@ -12,7 +12,7 @@ class C_Pengajuan extends Controller
     public function pengajuan()
     {
         $data = Pengajuan::where('status', 'Proses')
-            ->where('user_id', auth()->id())
+            ->where('user_id', getUserId())
             ->orderBy('created_at', 'desc')
             ->get();
 
