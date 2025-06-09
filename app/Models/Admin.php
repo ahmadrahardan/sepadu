@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Pengajuan;
 use App\Models\Jadwal;
+use App\Models\Faq;
+use App\Models\Komoditas;
 
 class Admin extends Authenticatable
 {
@@ -31,7 +33,7 @@ class Admin extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'username'; // 👈 WAJIB: agar Auth::attempt() cocok dengan 'username'
+        return 'username';
     }
 
     public function pengajuan(): HasMany
@@ -42,5 +44,15 @@ class Admin extends Authenticatable
     public function jadwal(): HasMany
     {
         return $this->hasMany(Jadwal::class);
+    }
+
+    public function faq(): HasMany
+    {
+        return $this->hasMany(Faq::class);
+    }
+
+    public function komoditas(): HasMany
+    {
+        return $this->hasMany(Komoditas::class);
     }
 }

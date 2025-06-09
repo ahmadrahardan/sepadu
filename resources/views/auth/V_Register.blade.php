@@ -139,10 +139,17 @@
                     </div>
                 </div>
 
-                <div>
-                    <label class="block mb-1 text-gray-700 font-medium">Alamat</label>
-                    <textarea name="alamat" rows="2" placeholder="Masukkan alamat"
-                        class="w-full border border-gray-300 resize-none rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">{{ old('alamat') }}</textarea>
+                <div class="flex gap-8">
+                    <div class="w-1/2">
+                        <label class="block mb-1 text-gray-700 font-medium">Komoditas</label>
+                        <input type="text" name="password_confirmation" placeholder="Konfirmasi password"
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="block mb-1 text-gray-700 font-medium">Alamat</label>
+                        <textarea name="alamat" rows="2" placeholder="Masukkan alamat"
+                            class="w-full border border-gray-300 resize-none rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">{{ old('alamat') }}</textarea>
+                    </div>
                 </div>
 
                 <div class="flex m-auto w-1/3">

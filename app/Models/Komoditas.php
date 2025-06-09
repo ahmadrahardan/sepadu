@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Admin;
 
-class Faq extends Model
+class Komoditas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'pertanyaan', 'jawaban'];
+    protected $table = 'komoditas';
+
+    protected $fillable = [
+        'komoditas',
+    ];
 
     public function admin(): BelongsTo
     {

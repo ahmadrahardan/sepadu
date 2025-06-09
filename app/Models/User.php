@@ -28,6 +28,7 @@ class User extends Authenticatable
         'telepon',
         'kbli',
         'siinas',
+        'komoditas',
         'alamat',
         'verifikasi',
     ];
@@ -55,11 +56,6 @@ class User extends Authenticatable
     public function pengajuan(): HasMany
     {
         return $this->hasMany(Pengajuan::class);
-    }
-
-    public function jadwal(): HasMany
-    {
-        return $this->hasMany(Jadwal::class);
     }
 
     public function pendaftaranPelatihan(): HasMany
