@@ -27,7 +27,7 @@ class FaqSeeder extends Seeder
 
         foreach ($pertanyaans as $index => $pertanyaan) {
             Faq::create([
-                'user_id' => 1,
+                'admin_id' => 1,
                 'pertanyaan' => $pertanyaan,
                 'jawaban' => $jawabans[$index] ?? 'Jawaban belum tersedia',
             ]);

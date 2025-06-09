@@ -9,7 +9,7 @@ class C_Verifikasi extends Controller
 {
     public function verifikasi()
     {
-        $users = User::where('verifikasi', false)->get();
+        $users = User::with('komoditas')->where('verifikasi', false)->get();
 
         return view('admin.V_Verifikasi', compact('users'));
     }

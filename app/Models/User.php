@@ -28,7 +28,7 @@ class User extends Authenticatable
         'telepon',
         'kbli',
         'siinas',
-        'komoditas',
+        'komoditas_id',
         'alamat',
         'verifikasi',
     ];
@@ -61,5 +61,10 @@ class User extends Authenticatable
     public function pendaftaranPelatihan(): HasMany
     {
         return $this->hasMany(Pendaftaran::class);
+    }
+
+    public function komoditas()
+    {
+        return $this->belongsTo(Komoditas::class);
     }
 }

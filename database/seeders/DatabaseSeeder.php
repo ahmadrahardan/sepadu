@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Jadwal;
 use App\Models\Admin;
+use App\Models\Komoditas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,10 +25,11 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            AdminSeeder::class,
+            KomoditasSeeder::class,
             UserSeeder::class,
             JadwalSeeder::class,
             FaqSeeder::class,
-            AdminSeeder::class,
         ]);
     }
 }

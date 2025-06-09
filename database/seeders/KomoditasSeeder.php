@@ -25,6 +25,7 @@ class KomoditasSeeder extends Seeder
 
         foreach ($komoditases as $komoditas) {
             Komoditas::create([
+                'admin_id' => 1,
                 'komoditas' => $komoditas,
             ]);
         }

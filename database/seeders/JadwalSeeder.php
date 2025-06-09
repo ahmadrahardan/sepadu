@@ -25,7 +25,7 @@ class JadwalSeeder extends Seeder
 
         foreach ($topiks as $topik) {
             Jadwal::create([
-                'user_id' => 1,
+                'admin_id' => 1,
                 'topik' => $topik,
                 'deskripsi' => 'Pelatihan tembakau ini bertujuan untuk meningkatkan pengetahuan dan keterampilan peserta dalam budidaya,    pemrosesan, serta pemasaran tembakau secara modern. Melalui sesi praktis, peserta akan mempelajari teknik-teknik penanaman, perawatan, panen, hingga pengolahan daun tembakau agar menghasilkan kualitas terbaik dan bernilai jual tinggi.',
                 'tanggal' => '2025-06-23',

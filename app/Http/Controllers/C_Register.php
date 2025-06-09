@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Komoditas;
 
 class C_Register extends Controller
 {
     public function daftar()
     {
-        return view("auth.V_Register");
+        $komoditas = Komoditas::all();
+        return view("auth.V_Register", compact('komoditas'));
     }
 
     public function daftarUser(Request $request)
@@ -24,6 +26,7 @@ class C_Register extends Controller
             'siinas' => 'required|digits:17',
             'alamat' => 'required|string|max:255',
             'password' => 'required|string|min:8|max:8|confirmed',
+            'komoditas_id' => 'required|exists:komoditas,id',
         ];
 
         $messages = [
@@ -44,6 +47,8 @@ class C_Register extends Controller
             'password.min' => 'Password minimal 8 karakter!',
             'password.max' => 'Password maksimal 8 karakter!',
             'password.confirmed' => 'Konfirmasi password tidak sesuai!',
+            'komoditas_id.required' => 'Komoditas wajib dipilih!',
+            'komoditas_id.exists' => 'Komoditas tidak valid!',
         ];
 
         $validated = $request->validate($rules, $messages);
@@ -57,6 +62,7 @@ class C_Register extends Controller
             'siinas' => $validated['siinas'],
             'alamat' => $validated['alamat'],
             'password' => Hash::make($validated['password']),
+            'komoditas_id' => $validated['komoditas_id'],
         ]);
 
         return redirect('/register')->with('success', 'Mohon tunggu verifikasi dari admin 2x24 jam untuk dapat login.');

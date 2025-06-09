@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('telepon');
             $table->string('siinas');
             $table->string('kbli');
-            $table->string('komoditas');
+            $table->foreignId('komoditas_id')->constrained('komoditas')->onDelete('cascade');
             $table->string('alamat');
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('verifikasi')->default(false);

@@ -3,13 +3,14 @@
 @section('content')
 
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center relative"
-    style="background-image: url({{ asset('assets/industry.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
-            <div class="rounded-2xl bg-cover bg-center p-6 w-full max-w-5xl z-20" style="background-image: url({{ asset('assets/bg.png') }})">
+            <div class="rounded-2xl bg-cover bg-center p-6 w-full max-w-5xl z-20"
+                style="background-image: url({{ asset('assets/bg.png') }})">
                 <h2 class="text-xl font-semibold text-black pl-4 mb-4">Daftar Registrasi</h2>
                 <div class="overflow-y-auto max-h-[300px] min-h-[430px] px-4 custom-scrollbar">
                     <table class="min-w-full text-sm text-black">
@@ -40,6 +41,7 @@
                                                 telepon: '{{ $item->telepon }}',
                                                 siinas: '{{ $item->siinas }}',
                                                 kbli: '{{ $item->kbli }}',
+                                                komoditas: '{{ $item->komoditas->komoditas ?? '-' }}',
                                                 alamat: '{{ $item->alamat }}'
                                             })"
                                             class="bg-green-500 hover:bg-green-700 text-white px-4 py-1 rounded-md transition">
@@ -119,7 +121,12 @@
                             <input type="text" x-model="detailUser.kbli"
                                 class="w-full bg-gray-100 border rounded-lg px-4 py-2" readonly>
                         </div>
-                        <div class="col-span-2">
+                        <div>
+                            <label class="text-sm font-semibold mb-1">Komoditas</label>
+                            <input type="text" x-model="detailUser.komoditas"
+                                class="w-full bg-gray-100 border rounded-lg px-4 py-2" readonly>
+                        </div>
+                        <div>
                             <label class="text-sm font-semibold mb-1">Alamat</label>
                             <textarea x-model="detailUser.alamat" rows="2" class="resize-none w-full bg-gray-100 border rounded-lg px-4 py-2"
                                 readonly></textarea>
@@ -182,6 +189,7 @@
                     telepon: '',
                     siinas: '',
                     kbli: '',
+                    komoditas: '',
                     alamat: '',
                 },
                 openDetail(user) {
