@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Pengajuan;
-use App\Models\Jadwal;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -63,7 +63,7 @@ class User extends Authenticatable
         return $this->hasMany(Pendaftaran::class);
     }
 
-    public function komoditas()
+    public function komoditas(): BelongsTo
     {
         return $this->belongsTo(Komoditas::class);
     }

@@ -3,12 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\Komoditas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class C_Pengajuan extends Controller
 {
+    // public function pengajuan(Request $request)
+    // {
+    //     $status = $request->get('status');
+    //     $komoditasId = $request->get('komoditas_id');
+
+    //     $query = Pengajuan::with('user')
+    //         ->whereHas('user', function ($q) {
+    //             $q->whereNotNull('id');
+    //         });
+
+    //     if ($status) {
+    //         $query->where('status', $status);
+    //     }
+
+    //     if ($komoditasId) {
+    //         $query->whereHas('user', function ($q) use ($komoditasId) {
+    //             $q->where('komoditas_id', $komoditasId);
+    //         });
+    //     }
+
+    //     $data = $query->orderBy('created_at', 'desc')->get();
+    //     $komoditasList = Komoditas::all();
+
+    //     return view('user.V_Pengajuan', compact('data', 'komoditasList'));
+    // }
+
     public function pengajuan()
     {
         $data = Pengajuan::where('status', 'Proses')
@@ -23,13 +50,22 @@ class C_Pengajuan extends Controller
     {
         $query = Pengajuan::with('user');
 
-        if ($request->has('status') && in_array($request->status, ['Proses', 'Disetujui', 'Ditolak'])) {
+        // Filter status jika ada
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        $data = $query->orderByDesc('created_at')->get();
+        // Filter komoditas jika ada
+        if ($request->filled('komoditas_id')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('komoditas_id', $request->komoditas_id);
+            });
+        }
 
-        return view('admin.V_Pengajuan', compact('data'));
+        $data = $query->orderByDesc('created_at')->get();
+        $komoditasList = Komoditas::all();
+
+        return view('admin.V_Pengajuan', compact('data', 'komoditasList'));
     }
 
     public function simpan(Request $request)

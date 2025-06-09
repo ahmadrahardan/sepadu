@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Jadwal;
 
 class Komoditas extends Model
 {
@@ -27,5 +28,10 @@ class Komoditas extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'komoditas_id');
+    }
+
+    public function jadwal(): HasMany
+    {
+        return $this->hasMany(Jadwal::class, 'komoditas_id');
     }
 }

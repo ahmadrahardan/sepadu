@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Admin;
 use App\Models\Pendaftaran;
+use App\Models\Komoditas;
 
 class Jadwal extends Model
 {
@@ -15,7 +16,7 @@ class Jadwal extends Model
 
     protected $table = 'jadwal';
 
-    protected $fillable = ['user_id', 'topik', 'deskripsi', 'tanggal', 'pukul', 'lokasi', 'kuota'];
+    protected $fillable = ['user_id', 'topik', 'deskripsi', 'tanggal', 'pukul', 'lokasi', 'kuota', 'komoditas_id'];
 
     public function admin(): BelongsTo
     {
@@ -25,5 +26,10 @@ class Jadwal extends Model
     public function pendaftaran(): HasMany
     {
         return $this->hasMany(Pendaftaran::class);
+    }
+
+    public function komoditas(): BelongsTo
+    {
+        return $this->belongsTo(Komoditas::class);
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('pukul');
             $table->string('lokasi');
             $table->string('kuota');
+            $table->foreignId('komoditas_id')->constrained('komoditas')->onDelete('cascade');
             $table->timestamps();
         });
     }

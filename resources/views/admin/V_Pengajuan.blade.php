@@ -3,22 +3,33 @@
 @section('content')
 
     <section x-data="pengajuanModal" class="font-sans min-h-screen bg-cover bg-center relative"
-    style="background-image: url({{ asset('assets/industry.png') }})">
+        style="background-image: url({{ asset('assets/industry.png') }})">
 
         <!-- Main Content -->
         <div class="flex flex-col items-center justify-center min-h-screen pt-16 px-8 relative z-10">
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
-            <div class="bg-cover bg-center rounded-2xl p-6 w-full z-20 max-w-5xl" style="background-image: url({{ asset('assets/bg.png') }})">
+            <div class="bg-cover bg-center rounded-2xl p-6 w-full z-20 max-w-5xl"
+                style="background-image: url({{ asset('assets/bg.png') }})">
                 <div class="flex justify-between">
                     <h2 class="text-xl font-semibold text-black pl-4 mb-4 mr-1">Pengajuan Pelatihan</h2>
-                    <div class="flex justify-end mb-4  pr-4">
+                    <div class="flex justify-end mb-4 pr-4 space-x-2">
+                        <!-- Filter Status -->
                         <select x-model="selectedStatus" @change="filterByStatus"
-                            class="bg-green-600 text-white px-4 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                            class="bg-green-600 text-white px-4 py-1 rounded-md">
                             <option value="">Semua Status</option>
                             <option value="Proses">Proses</option>
                             <option value="Disetujui">Disetujui</option>
                             <option value="Ditolak">Ditolak</option>
+                        </select>
+
+                        <!-- Filter Komoditas -->
+                        <select x-model="selectedKomoditas" @change="filterByStatus"
+                            class="bg-green-600 text-white px-4 py-1 rounded-md">
+                            <option value="">Semua Komoditas</option>
+                            @foreach ($komoditasList as $k)
+                                <option value="{{ $k->id }}">{{ $k->komoditas }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -237,6 +248,7 @@
             Alpine.data("pengajuanModal", () => ({
                 showDetailModal: false,
                 selectedStatus: '{{ request()->get('status', '') }}',
+                selectedKomoditas: '{{ request()->get("komoditas_id", "") }}',
                 detailPengajuan: {
                     id: '',
                     nama: '',
@@ -257,6 +269,7 @@
                 filterByStatus() {
                     const url = new URL(window.location.href);
                     url.searchParams.set('status', this.selectedStatus);
+                    url.searchParams.set('komoditas_id', this.selectedKomoditas);
                     window.location.href = url.toString();
                 },
             }))

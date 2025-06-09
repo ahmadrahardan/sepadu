@@ -32,6 +32,7 @@ class JadwalSeeder extends Seeder
                 'pukul' => '08:30',
                 'lokasi' => 'Dinas Perindustrian dan Perdagangan Kabupaten Jember',
                 'kuota' => '50',
+                'komoditas_id' => 4,
             ]);
         }
     }
