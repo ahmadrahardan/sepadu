@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\KomoditaS;
+use App\Models\Komoditas;
 
 class KomoditasSeeder extends Seeder
 {
@@ -15,12 +15,16 @@ class KomoditasSeeder extends Seeder
     {
         $komoditases = [
             'Tekstil dan Barang Kulit',
+            'Alat Angkutan dan Mesin',
+            'Pupuk, Kimia, dan Bara',
+            'Barang Kayu dan Hias',
+            'Handycraft',
+            'Tembakau',
             'Makanan',
             'Minuman',
-            'Tembakau',
-            'Pupuk Kimia',
             'Kertas',
-            'Barang Kayu',
+            'Semen',
+            'Obat',
         ];
 
         foreach ($komoditases as $komoditas) {

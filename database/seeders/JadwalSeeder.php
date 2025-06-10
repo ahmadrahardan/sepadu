@@ -6,8 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Jadwal;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class JadwalSeeder extends Seeder
 {
@@ -32,7 +30,7 @@ class JadwalSeeder extends Seeder
                 'pukul' => '08:30',
                 'lokasi' => 'Dinas Perindustrian dan Perdagangan Kabupaten Jember',
                 'kuota' => '50',
-                'komoditas_id' => 4,
+                'komoditas_id' => 6,
             ]);
         }
     }

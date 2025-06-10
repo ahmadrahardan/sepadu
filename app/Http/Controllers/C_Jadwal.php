@@ -16,9 +16,12 @@ class C_Jadwal extends Controller
 {
     public function jadwal(Request $request)
     {
+        $user = auth()->user();
+
         $bulan = $request->get('bulan', 'terbaru');
 
-        $query = Jadwal::query();
+        $query = Jadwal::query()
+            ->where('komoditas_id', $user->komoditas_id);
 
         if ($bulan === 'terbaru') {
             $query->orderBy('tanggal', 'desc')->limit(5);
@@ -33,7 +36,7 @@ class C_Jadwal extends Controller
 
         $data = $query->get();
 
-        $userId = getUserId();
+        $userId = $user->id;
         $sudahDaftar = Pendaftaran::where('user_id', $userId)
             ->pluck('jadwal_id')
             ->toArray();
@@ -203,7 +206,6 @@ class C_Jadwal extends Controller
 
         try {
             DB::transaction(function () use ($validated, $jumlahPeserta) {
-                // Lock baris jadwal
                 $jadwal = DB::table('jadwal')
                     ->where('id', $validated['jadwal_id'])
                     ->lockForUpdate()
@@ -213,25 +215,22 @@ class C_Jadwal extends Controller
                     throw new \Exception('Kuota tidak mencukupi. Sisa kuota hanya ' . $jadwal->kuota);
                 }
 
-                // Simpan pendaftaran
-                $pendaftaran = \App\Models\Pendaftaran::create([
+                $pendaftaran = Pendaftaran::create([
                     'user_id' => getUserId(),
                     'jadwal_id' => $jadwal->id,
                 ]);
 
-                // Simpan peserta
                 foreach (range(1, 5) as $i) {
                     $nama = $validated["pendaftar_$i"] ?? null;
                     if ($nama) {
-                        \App\Models\Peserta::create([
+                        Peserta::create([
                             'pendaftaran_id' => $pendaftaran->id,
                             'nama' => $nama,
                         ]);
                     }
                 }
 
-                // Kurangi kuota
-                \App\Models\Jadwal::where('id', $jadwal->id)->update([
+                Jadwal::where('id', $jadwal->id)->update([
                     'kuota' => $jadwal->kuota - $jumlahPeserta,
                 ]);
             });

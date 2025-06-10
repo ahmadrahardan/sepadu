@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             KomoditasSeeder::class,
             UserSeeder::class,
+            PengajuanSeeder::class,
             JadwalSeeder::class,
             FaqSeeder::class,
         ]);

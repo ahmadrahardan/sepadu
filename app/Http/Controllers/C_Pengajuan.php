@@ -10,32 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class C_Pengajuan extends Controller
 {
-    // public function pengajuan(Request $request)
-    // {
-    //     $status = $request->get('status');
-    //     $komoditasId = $request->get('komoditas_id');
-
-    //     $query = Pengajuan::with('user')
-    //         ->whereHas('user', function ($q) {
-    //             $q->whereNotNull('id');
-    //         });
-
-    //     if ($status) {
-    //         $query->where('status', $status);
-    //     }
-
-    //     if ($komoditasId) {
-    //         $query->whereHas('user', function ($q) use ($komoditasId) {
-    //             $q->where('komoditas_id', $komoditasId);
-    //         });
-    //     }
-
-    //     $data = $query->orderBy('created_at', 'desc')->get();
-    //     $komoditasList = Komoditas::all();
-
-    //     return view('user.V_Pengajuan', compact('data', 'komoditasList'));
-    // }
-
     public function pengajuan()
     {
         $data = Pengajuan::where('status', 'Proses')
@@ -50,12 +24,10 @@ class C_Pengajuan extends Controller
     {
         $query = Pengajuan::with('user');
 
-        // Filter status jika ada
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Filter komoditas jika ada
         if ($request->filled('komoditas_id')) {
             $query->whereHas('user', function ($q) use ($request) {
                 $q->where('komoditas_id', $request->komoditas_id);
@@ -88,10 +60,9 @@ class C_Pengajuan extends Controller
 
         $filePath = $request->file('dokumen')->store('dokumen_pengajuan', 'public');
 
-        // Generate kode: IHT-0001, IHT-0002, dst
-        $last = \App\Models\Pengajuan::latest('id')->first();
+        $last = Pengajuan::latest('id')->first();
         $nextNumber = $last ? $last->id + 1 : 1;
-        $kode = 'IHT-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        $kode = 'IND-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
         Pengajuan::create([
             'user_id' => Auth::id(),
