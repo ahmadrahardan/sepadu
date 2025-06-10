@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Models\Komoditas;
 
 class C_Jadwal extends Controller
 {
@@ -33,17 +34,19 @@ class C_Jadwal extends Controller
         $data = $query->get();
 
         $userId = getUserId();
-        $sudahDaftar = \App\Models\Pendaftaran::where('user_id', $userId)
+        $sudahDaftar = Pendaftaran::where('user_id', $userId)
             ->pluck('jadwal_id')
             ->toArray();
 
         return view('user.V_Jadwal', compact('data', 'sudahDaftar'));
     }
 
-
     public function adminJadwal(Request $request)
     {
+        $komoditas = Komoditas::all();
+
         $bulan = $bulan = $request->get('bulan', 'terbaru');
+        $komoditasId = $request->get('komoditas');
 
         $query = Jadwal::query();
 
@@ -58,9 +61,13 @@ class C_Jadwal extends Controller
                 ->orderBy('tanggal', 'asc');
         }
 
+        if (!empty($komoditasId)) {
+            $query->where('komoditas_id', $komoditasId);
+        }
+
         $data = $query->get();
 
-        return view('admin.V_Jadwal', compact('data'));
+        return view('admin.V_Jadwal', compact('data', 'komoditas'));
     }
 
     public function simpan(Request $request)
@@ -72,6 +79,7 @@ class C_Jadwal extends Controller
             'pukul' => 'required|date_format:H:i',
             'lokasi' => 'required|string|max:64',
             'kuota' => 'required|string',
+            'komoditas_id' => 'required|exists:komoditas,id',
         ];
 
         $messages = [
@@ -86,6 +94,8 @@ class C_Jadwal extends Controller
             'lokasi.required' => 'Lokasi belum diisi!',
             'lokasi.max' => 'Lokasi terlalu panjang.',
             'kuota.required' => 'kuota peserta belum diisi!',
+            'komoditas_id.required' => 'Komoditas wajib dipilih!',
+            'komoditas_id.exists' => 'Komoditas tidak valid!',
         ];
 
         $validated = $request->validate($rules, $messages);
@@ -98,6 +108,7 @@ class C_Jadwal extends Controller
             'pukul' => $validated['pukul'],
             'lokasi' => $validated['lokasi'],
             'kuota' => $validated['kuota'],
+            'komoditas_id' => $validated['komoditas_id'],
         ]);
 
         return back()->with('success', 'Jadwal berhasil dibuat!');
@@ -117,6 +128,7 @@ class C_Jadwal extends Controller
             'pukul' => 'required|date_format:H:i',
             'lokasi' => 'required|string|max:64',
             'kuota' => 'required|string',
+            'komoditas_id' => 'required|exists:komoditas,id',
         ];
 
         $messages = [
@@ -131,6 +143,8 @@ class C_Jadwal extends Controller
             'lokasi.required' => 'Lokasi belum diisi!',
             'lokasi.max' => 'Lokasi terlalu panjang.',
             'kuota.required' => 'kuota peserta belum diisi!',
+            'komoditas_id.required' => 'Komoditas wajib dipilih!',
+            'komoditas_id.exists' => 'Komoditas tidak valid!',
         ];
 
         $validated = $request->validate($rules, $messages);
@@ -142,6 +156,8 @@ class C_Jadwal extends Controller
         $jadwal->pukul = $validated['pukul'];
         $jadwal->lokasi = $validated['lokasi'];
         $jadwal->kuota = $validated['kuota'];
+        $jadwal->komoditas_id = $validated['komoditas_id'];
+
 
         $jadwal->save();
 

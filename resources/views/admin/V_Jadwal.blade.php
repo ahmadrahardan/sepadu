@@ -10,8 +10,8 @@
             <div class="h-[100%] w-full bg-black/30 absolute bottom-0 z-10"></div>
 
             <!-- Box Header Jadwal -->
-            <div
-                class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20" style="background-image: url({{ asset('assets/scrolll.png') }})">
+            <div class="w-full max-w-5xl bg-fit bg-center rounded-xl p-6 mb-6 text-black z-20"
+                style="background-image: url({{ asset('assets/scrolll.png') }})">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold">Jadwal Pelatihan</h3>
@@ -22,28 +22,42 @@
                         $currentYear = now()->year;
                         $currentMonth = now()->month;
                     @endphp
-                    <div>
-                        <label class="block text-sm font-light mb-1 text-black">Pilih Bulan & Tahun:</label>
-                        <select name="bulan_tahun" x-model="selectedMonthYear" @change="filterByMonthYear"
-                            class="bg-green-600 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
-
-                            <!-- Opsi Terbaru -->
-                            <option value="terbaru" {{ request('bulan', 'terbaru') === 'terbaru' ? 'selected' : '' }}>
-                                Terbaru</option>
-
-                            <!-- Opsi Bulan & Tahun -->
-                            @for ($y = $currentYear; $y <= $currentYear + 2; $y++)
-                                @for ($m = 1; $m <= 12; $m++)
-                                    @php
-                                        $value = sprintf('%04d-%02d', $y, $m);
-                                        $label = \Carbon\Carbon::createFromDate($y, $m, 1)->translatedFormat('F Y');
-                                    @endphp
-                                    <option value="{{ $value }}" @selected($value === request('bulan', now()->format('Y-m')))>
-                                        {{ $label }}
+                    <div class="flex gap-2">
+                        <!-- Dropdown Filter Komoditas -->
+                        <div>
+                            <label class="block text-sm font-light mb-1 text-black">Pilih Komoditas:</label>
+                            <select name="komoditas" x-model="selectedKomoditas" @change="filterByKomoditas"
+                                class="bg-green-600 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                                <option value="">Semua Komoditas</option>
+                                @foreach ($komoditas as $k)
+                                    <option value="{{ $k->id }}" @selected(request('komoditas') == $k->id)>{{ $k->komoditas }}
                                     </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-light mb-1 text-black">Pilih Bulan & Tahun:</label>
+                            <select name="bulan_tahun" x-model="selectedMonthYear" @change="filterByMonthYear"
+                                class="bg-green-600 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+
+                                <!-- Opsi Terbaru -->
+                                <option value="terbaru" {{ request('bulan', 'terbaru') === 'terbaru' ? 'selected' : '' }}>
+                                    Terbaru</option>
+
+                                <!-- Opsi Bulan & Tahun -->
+                                @for ($y = $currentYear; $y <= $currentYear + 2; $y++)
+                                    @for ($m = 1; $m <= 12; $m++)
+                                        @php
+                                            $value = sprintf('%04d-%02d', $y, $m);
+                                            $label = \Carbon\Carbon::createFromDate($y, $m, 1)->translatedFormat('F Y');
+                                        @endphp
+                                        <option value="{{ $value }}" @selected($value === request('bulan', now()->format('Y-m')))>
+                                            {{ $label }}
+                                        </option>
+                                    @endfor
                                 @endfor
-                            @endfor
-                        </select>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,12 +66,12 @@
             <div class="w-full max-w-5xl h-[350px] overflow-y-auto px-2 custom-scrollbar space-y-2 z-20">
                 @if ($data->isEmpty())
                     <div class="text-white text-center mt-10 text-lg font-semibold">
-                        Tidak ada jadwal untuk bulan ini.
+                        Tidak ada jadwal.
                     </div>
                 @else
                     @foreach ($data as $item)
-                        <div
-                            class="bg-fit bg-center h-[110px] rounded-xl p-5 text-black" style="background-image: url({{ asset('assets/scrolll.png') }})">
+                        <div class="bg-fit bg-center h-[110px] rounded-xl p-5 text-black"
+                            style="background-image: url({{ asset('assets/scrolll.png') }})">
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 <div>
                                     <div class="flex gap-3">
@@ -85,7 +99,8 @@
                                             tanggal: '{{ $item->tanggal }}',
                                             pukul: '{{ $item->pukul }}',
                                             lokasi: '{{ $item->lokasi }}',
-                                            kuota: '{{ $item->kuota }}'
+                                            kuota: '{{ $item->kuota }}',
+                                            komoditas: '{{ $item->komoditas->komoditas }}',
                                         })"
                                             class="bg-green-500 hover:bg-green-700 text-white px-4 py-1 rounded-md transition">
                                             Detail
@@ -100,8 +115,9 @@
                                             deskripsi: '{{ $item->deskripsi }}',
                                             tanggal: '{{ $item->tanggal }}',
                                             pukul: '{{ $item->pukul }}',
+                                            komoditas_id: '{{ $item->komoditas_id }}',
+                                            kuota: '{{ $item->kuota }}',
                                             lokasi: '{{ $item->lokasi }}',
-                                            kuota: '{{ $item->kuota }}'
                                         })"
                                             class="bg-orange-500 hover:bg-orange-600 text-white p-1 rounded-md border-2 border-white/40 flex items-center justify-center">
                                             <img src="{{ asset('assets/edit.png') }}" alt="edit">
@@ -186,14 +202,21 @@
                                 class="w-full border rounded-lg px-4 py-2 bg-gray-100">
                         </div>
                     </div>
+                    <div class="flex gap-8">
+                        <div class="w-1/2">
+                            <label class="block text-sm font-semibold mb-1">Kuota</label>
+                            <input type="text" x-model="detailJadwal.kuota" readonly
+                                class="w-full border rounded-lg px-4 py-2 bg-gray-100">
+                        </div>
+                        <div class="w-1/2">
+                            <label class="block text-sm font-semibold mb-1">Komoditas</label>
+                            <input type="text" x-model="detailJadwal.komoditas" readonly
+                                class="w-full border rounded-lg px-4 py-2 bg-gray-100">
+                        </div>
+                    </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Lokasi</label>
                         <input type="text" x-model="detailJadwal.lokasi" readonly
-                            class="w-full border rounded-lg px-4 py-2 bg-gray-100">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Kuota</label>
-                        <input type="text" x-model="detailJadwal.kuota" readonly
                             class="w-full border rounded-lg px-4 py-2 bg-gray-100">
                     </div>
                 </div>
@@ -247,18 +270,49 @@
                         </div>
                     </div>
 
+                    <div class="flex gap-8">
+                        <div class="w-1/2">
+                            <label class="block text-sm font-semibold mb-1">Kuota</label>
+                            <input type="text" name="kuota" value="{{ old('kuota') }}"
+                                class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                placeholder="Masukkan Kuota">
+                        </div>
+                        <div class="w-1/2">
+                            {{-- <label class="block mb-1 text-gray-700 font-medium">Komoditas</label>
+                            <select name="komoditas_id"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">
+                                <option value="">Pilih Komoditas</option>
+                                @foreach ($komoditas as $item)
+                                    <option value="{{ $item->id }}">{{ $item->komoditas }}</option>
+                                @endforeach
+                            </select> --}}
+                            {{-- <label class="block text-sm font-semibold mb-1">Komoditas</label>
+                            <select name="komoditas_id" x-model="detailJadwal.komoditas_id"
+                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option value="">Pilih Komoditas</option>
+                                @foreach ($komoditas as $k)
+                                    <option value="{{ $k->id }}">{{ $k->komoditas }}</option>
+                                @endforeach
+                            </select> --}}
+                            <label class="block text-sm font-semibold mb-1">Komoditas</label>
+                            <select name="komoditas_id"
+                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option value="">Pilih Komoditas</option>
+                                @foreach ($komoditas as $k)
+                                    <option value="{{ $k->id }}"
+                                        {{ old('komoditas_id') == $k->id ? 'selected' : '' }}>
+                                        {{ $k->komoditas }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-semibold mb-1">Lokasi</label>
                         <input type="text" name="lokasi" value="{{ old('lokasi') }}"
                             class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                             placeholder="Masukkan Lokasi">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Kuota</label>
-                        <input type="text" name="kuota" value="{{ old('kuota') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Kuota">
                     </div>
 
                     <div class="flex justify-end mt-6 space-x-3">
@@ -317,18 +371,30 @@
                         </div>
                     </div>
 
+                    <div class="flex gap-8">
+                        <div class="w-1/2">
+                            <label class="block text-sm font-semibold mb-1">Kuota</label>
+                            <input type="text" name="kuota" x-model="detailJadwal.kuota"
+                                class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                placeholder="Masukkan Kuota">
+                        </div>
+                        <div class="w-1/2">
+                            <label class="block text-sm font-semibold mb-1">Komoditas</label>
+                            <select name="komoditas_id" x-model="detailJadwal.komoditas_id"
+                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option value="">Pilih Komoditas</option>
+                                @foreach ($komoditas as $k)
+                                    <option value="{{ $k->id }}">{{ $k->komoditas }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-semibold mb-1">Lokasi</label>
                         <input type="text" name="lokasi" x-model="detailJadwal.lokasi"
                             class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                             placeholder="Masukkan Lokasi">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Kuota</label>
-                        <input type="text" name="kuota" x-model="detailJadwal.kuota"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Kuota">
                     </div>
 
                     <div class="flex justify-end mt-6 space-x-3">
@@ -409,15 +475,18 @@
                 showDetailModal: false,
                 showPesertaModal: false,
                 pesertaList: [],
-                selectedMonthYear: '{{ request()->get('bulan', now()->format('Y-m')) }}',
+                selectedMonthYear: '{{ request()->get('bulan', 'terbaru') }}',
+                // selectedMonthYear: '{{ request()->get('bulan', now()->format('Y-m')) }}',
+                selectedKomoditas: '{{ request()->get('komoditas', '') }}',
                 detailJadwal: {
                     id: '{{ old('id') ?? '' }}',
                     topik: '{{ old('topik') ?? '' }}',
                     deskripsi: '{{ old('deskripsi') ?? '' }}',
                     tanggal: '{{ old('tanggal') ?? '' }}',
                     pukul: '{{ old('pukul') ?? '' }}',
-                    lokasi: '{{ old('lokasi') ?? '' }}',
                     kuota: '{{ old('kuota') ?? '' }}',
+                    komoditas_id: '{{ old('komoditas_id') ?? '' }}',
+                    lokasi: '{{ old('lokasi') ?? '' }}',
                 },
                 openDetail(data) {
                     this.detailJadwal = data;
@@ -440,9 +509,15 @@
                             this.showPesertaModal = true;
                         });
                 },
-                selectedMonthYear: '{{ request()->get('bulan', 'terbaru') }}',
                 filterByMonthYear() {
                     const url = new URL(window.location.href);
+                    url.searchParams.set('bulan', this.selectedMonthYear);
+                    url.searchParams.set('komoditas', this.selectedKomoditas);
+                    window.location.href = url.toString();
+                },
+                filterByKomoditas() {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('komoditas', this.selectedKomoditas);
                     url.searchParams.set('bulan', this.selectedMonthYear);
                     window.location.href = url.toString();
                 },
