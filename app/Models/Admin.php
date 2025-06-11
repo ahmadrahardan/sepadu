@@ -33,7 +33,7 @@ class Admin extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'username';
+        return 'id';
     }
 
     public function pengajuan(): HasMany

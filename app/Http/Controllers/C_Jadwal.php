@@ -104,7 +104,7 @@ class C_Jadwal extends Controller
         $validated = $request->validate($rules, $messages);
 
         Jadwal::create([
-            'user_id' => getUserId(),
+            'admin_id' => getUserId(),
             'topik' => $validated['topik'],
             'deskripsi' => $validated['deskripsi'],
             'tanggal' => $validated['tanggal'],
