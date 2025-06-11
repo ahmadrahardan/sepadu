@@ -11,7 +11,7 @@ class Faq extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'pertanyaan', 'jawaban'];
+    protected $fillable = ['admin_id', 'pertanyaan', 'jawaban'];
 
     public function admin(): BelongsTo
     {
