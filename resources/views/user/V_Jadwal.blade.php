@@ -204,6 +204,7 @@
                     <input type="hidden" name="jadwal_id" :value="jadwalId">
                     <input type="hidden" name="modal" value="daftar">
 
+                    <!-- Field Peserta Dinamis Menggunakan AlpineJS-->
                     <div id="peserta-fields" x-ref="fieldsContainer" class="space-y-3 max-h-80 overflow-y-auto p-1">
                         <template x-for="(nama, index) in pendaftar" :key="index">
                             <div>

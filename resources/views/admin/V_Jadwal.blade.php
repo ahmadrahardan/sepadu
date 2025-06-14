@@ -75,10 +75,18 @@
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 <div>
                                     <div class="flex gap-3">
-                                        <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
-                                            {{ $item->tanggal }}</p>
-                                        <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
-                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}</p>
+                                        <p class="text-sm text-black">
+                                            <i class="fa fa-calendar mr-1"></i>
+                                            {{ $item->tanggal }}
+                                        </p>
+                                        <p class="text-sm text-black">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}
+                                        </p>
+                                        <p class="text-sm text-black">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            {{ $item->pesertas_count }} / {{$item->kuota}}
+                                        </p>
                                     </div>
                                     <h4 class="text-lg font-semibold truncate">{{ $item->topik }}</h4>
                                     <p class="text-sm text-black break-words"><i class="fa fa-map-marker mr-1"></i>
