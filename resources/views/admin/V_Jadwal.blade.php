@@ -273,7 +273,7 @@
                     <div class="flex gap-8">
                         <div class="w-1/2">
                             <label class="block text-sm font-semibold mb-1">Kuota</label>
-                            <input type="text" name="kuota" value="{{ old('kuota') }}"
+                            <input type="number" name="kuota" value="{{ old('kuota') }}"
                                 class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                                 placeholder="Masukkan Kuota">
                         </div>

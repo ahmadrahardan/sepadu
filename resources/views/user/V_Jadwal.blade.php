@@ -204,7 +204,7 @@
                     <input type="hidden" name="jadwal_id" :value="jadwalId">
                     <input type="hidden" name="modal" value="daftar">
 
-                    <div id="peserta-fields" class="space-y-3 max-h-64 overflow-y-auto p-1">
+                    <div id="peserta-fields" x-ref="fieldsContainer" class="space-y-3 max-h-80 overflow-y-auto p-1">
                         <template x-for="(nama, index) in pendaftar" :key="index">
                             <div>
                                 <label :for="'pendaftar_' + index" class="block text-sm font-semibold mb-1" x-text="'Peserta ' + (index + 1)"></label>
@@ -221,8 +221,13 @@
 
                     <div class="flex items-center justify-start space-x-3 pt-2">
                         <button type="button"
-                            @click="pendaftar.push('')"
-                            :disabled="pendaftar.length >= sisaKuota"
+                            @click="
+                                pendaftar.push('');
+                                $nextTick(() => {
+                                    $refs.fieldsContainer.scrollTop = $refs.fieldsContainer.scrollHeight
+                                })
+                            "
+                            :disabled="pendaftar.length >= sisaKuota || pendaftar.length >= 5"
                             class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed">
                             Tambah Peserta
                         </button>

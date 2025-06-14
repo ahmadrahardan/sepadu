@@ -128,7 +128,7 @@ class C_Jadwal extends Controller
             'topik' => 'required|string|max:64',
             'deskripsi' => 'required|string|max:500',
             'tanggal' => 'required|date',
-            'pukul' => 'required|date_format:H:i',
+            'pukul' => 'required|date_format:H:i:s',
             'lokasi' => 'required|string|max:64',
             'kuota' => 'required|integer',
             'komoditas_id' => 'required|exists:komoditas,id',
