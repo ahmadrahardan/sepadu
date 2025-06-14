@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('pukul');
             $table->string('lokasi');
-            $table->string('kuota');
+            $table->integer('kuota');
             $table->foreignId('komoditas_id')->constrained('komoditas')->onDelete('cascade');
             $table->timestamps();
         });

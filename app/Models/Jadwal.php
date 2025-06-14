@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Admin;
 use App\Models\Pendaftaran;
 use App\Models\Komoditas;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Jadwal extends Model
 {
@@ -31,5 +32,10 @@ class Jadwal extends Model
     public function komoditas(): BelongsTo
     {
         return $this->belongsTo(Komoditas::class);
+    }
+
+    public function pesertas(): HasManyThrough
+    {
+        return $this->hasManyThrough(Peserta::class, Pendaftaran::class);
     }
 }

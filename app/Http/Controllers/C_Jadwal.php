@@ -20,7 +20,7 @@ class C_Jadwal extends Controller
 
         $bulan = $request->get('bulan', 'terbaru');
 
-        $query = Jadwal::query()
+        $query = Jadwal::withCount('pesertas')
             ->where('komoditas_id', $user->komoditas_id);
 
         if ($bulan === 'terbaru') {
@@ -51,7 +51,7 @@ class C_Jadwal extends Controller
         $bulan = $bulan = $request->get('bulan', 'terbaru');
         $komoditasId = $request->get('komoditas');
 
-        $query = Jadwal::query();
+        $query = Jadwal::withCount('pesertas');
 
         if ($bulan === 'terbaru') {
 
@@ -81,7 +81,7 @@ class C_Jadwal extends Controller
             'tanggal' => 'required|date',
             'pukul' => 'required|date_format:H:i',
             'lokasi' => 'required|string|max:64',
-            'kuota' => 'required|string',
+            'kuota' => 'required|integer',
             'komoditas_id' => 'required|exists:komoditas,id',
         ];
 
@@ -128,9 +128,9 @@ class C_Jadwal extends Controller
             'topik' => 'required|string|max:64',
             'deskripsi' => 'required|string|max:500',
             'tanggal' => 'required|date',
-            'pukul' => 'required|date_format:H:i',
+            'pukul' => 'required|date_format:H:i:s',
             'lokasi' => 'required|string|max:64',
-            'kuota' => 'required|string',
+            'kuota' => 'required|integer',
             'komoditas_id' => 'required|exists:komoditas,id',
         ];
 
@@ -180,39 +180,28 @@ class C_Jadwal extends Controller
     {
         $validated = $request->validate([
             'jadwal_id' => 'required|exists:jadwal,id',
-            'pendaftar_1' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
-            'pendaftar_2' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
-            'pendaftar_3' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
-            'pendaftar_4' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
-            'pendaftar_5' => ['nullable', 'string', 'max:64', 'regex:/^[^0-9,+]*$/'],
+            'pendaftar' => 'required|array|min:1',
+            'pendaftar.*' => ['required', 'string', 'max:64', 'regex:/^[^0-9,+]*$/']
         ], [
-            'pendaftar_1.regex' => 'Nama pendaftar 1 tidak boleh mengandung angka, tanda +, atau koma.',
-            'pendaftar_2.regex' => 'Nama pendaftar 2 tidak boleh mengandung angka, tanda +, atau koma.',
-            'pendaftar_3.regex' => 'Nama pendaftar 3 tidak boleh mengandung angka, tanda +, atau koma.',
-            'pendaftar_4.regex' => 'Nama pendaftar 4 tidak boleh mengandung angka, tanda +, atau koma.',
-            'pendaftar_5.regex' => 'Nama pendaftar 5 tidak boleh mengandung angka, tanda +, atau koma.',
+            'pendaftar.required' => 'Daftar peserta tidak boleh kosong.',
+            'pendaftar.*.required' => "Nama peserta tidak boleh kosong.",
+            'pendaftar.*.max' => "Nama peserta terlalu panjang (max 64 karakter).",
+            'pendaftar.*.regex' => "Nama peserta tidak boleh mengandung angka atau simbol."
         ]);
 
-        $jumlahPeserta = collect(range(1, 5))
-            ->map(fn($i) => $validated["pendaftar_$i"] ?? null)
-            ->filter()
-            ->count();
+        $pendaftarBaru = $validated['pendaftar'];
 
-        if ($jumlahPeserta === 0) {
-            return back()
-                ->withErrors(['pendaftar_1' => 'Belum ada nama yang didaftarkan!'])
-                ->withInput();
-        }
+
+        $jumlahPeserta = count($pendaftarBaru);
 
         try {
-            DB::transaction(function () use ($validated, $jumlahPeserta) {
-                $jadwal = DB::table('jadwal')
-                    ->where('id', $validated['jadwal_id'])
-                    ->lockForUpdate()
-                    ->first();
+            DB::transaction(function () use ($validated, $jumlahPeserta, $pendaftarBaru) {
+                $jadwal = Jadwal::withCount('pesertas')->lockForUpdate()->findOrFail($validated['jadwal_id']);
 
-                if ($jadwal->kuota < $jumlahPeserta) {
-                    throw new \Exception('Kuota tidak mencukupi. Sisa kuota hanya ' . $jadwal->kuota);
+                $sisaKuota = $jadwal->kuota - $jadwal->pesertas_count;
+
+                if ($sisaKuota < $jumlahPeserta) {
+                    throw new \Exception('Kuota tidak mencukupi. Sisa kuota hanya ' . $sisaKuota);
                 }
 
                 $pendaftaran = Pendaftaran::create([
@@ -220,8 +209,7 @@ class C_Jadwal extends Controller
                     'jadwal_id' => $jadwal->id,
                 ]);
 
-                foreach (range(1, 5) as $i) {
-                    $nama = $validated["pendaftar_$i"] ?? null;
+                foreach ($pendaftarBaru as $nama) {
                     if ($nama) {
                         Peserta::create([
                             'pendaftaran_id' => $pendaftaran->id,
@@ -230,9 +218,9 @@ class C_Jadwal extends Controller
                     }
                 }
 
-                Jadwal::where('id', $jadwal->id)->update([
-                    'kuota' => $jadwal->kuota - $jumlahPeserta,
-                ]);
+                // Jadwal::where('id', $jadwal->id)->update([
+                //     'kuota' => $jadwal->kuota - $jumlahPeserta,
+                // ]);
             });
 
             return back()->with('success', 'Berhasil mendaftar!');
