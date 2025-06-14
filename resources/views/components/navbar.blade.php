@@ -38,33 +38,43 @@
         <!-- Desktop Menu -->
         <nav class="hidden lg:flex items-center gap-10 text-white text-md">
             @if ($isAdmin)
-                <a href="{{ route('V_Verifikasi') }}"
-                    class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Verifikasi</a>
+                <x-nav-link :href="route('V_Verifikasi')" :active="request()->routeIs('V_Verifikasi')">
+                    Verifikasi
+                </x-nav-link>
             @endif
 
             @if (!$isDashboard)
                 @if ($isAdmin)
-                    <a href="{{ route('admin.pengajuan') }}"
-                        class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Pengajuan</a>
-                    <a href="{{ route('admin.jadwal') }}"
-                        class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Jadwal</a>
+
+                    <x-nav-link :href="route('admin.pengajuan')" :active="request()->routeIs('admin.pengajuan')">
+                        Pengajuan
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.jadwal')" :active="request()->routeIs('admin.jadwal')">
+                        Jadwal
+                    </x-nav-link>
+
                 @endif
                 @if (!$isAdmin)
-                    <a href="{{ route('V_Pengajuan') }}"
-                        class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Pengajuan</a>
-                    <a href="{{ route('V_Jadwal') }}"
-                        class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Jadwal</a>
+                    <x-nav-link :href="route('V_Pengajuan')" :active="request()->routeIs('V_Pengajuan')">
+                        Pengajuan
+                    </x-nav-link>
+                    <x-nav-link :href="route('V_Jadwal')" :active="request()->routeIs('V_Jadwal')">
+                        Jadwal
+                    </x-nav-link>
                 @endif
             @endif
 
-            <a href="{{ route('V_FAQ') }}"
-                class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">FAQ</a>
+            <x-nav-link :href="route('V_FAQ')" :active="request()->routeIs('V_FAQ')">
+                FAQ
+            </x-nav-link>
 
             @unless ($isAdmin)
-                <a href="{{ route('V_Riwayat') }}"
-                    class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Riwayat</a>
-                <a href="{{ route('V_Pelatihan') }}"
-                    class="text-white hover:bg-white/10 hover:rounded-lg px-1 hover:border-t hover:border-white">Pelatihan</a>
+                <x-nav-link :href="route('V_Riwayat')" :active="request()->routeIs('V_Riwayat')">
+                    Riwayat
+                </x-nav-link>
+                <x-nav-link :href="route('V_Pelatihan')" :active="request()->routeIs('V_Pelatihan')">
+                    Pelatihan
+                </x-nav-link>
             @endunless
 
             <a href="{{ route('V_Profil') }}"
