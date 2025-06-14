@@ -203,7 +203,7 @@
                             </button>
 
                             <!-- Dropdown -->
-                            <div x-show="showDropdown" x-cloak x-transition
+                            <div x-show="showDropdown" @click.outside = "showDropdown = false" x-cloak x-transition
                                 class="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-xl border p-4 space-y-3 w-full z-50">
                                 <!-- Tombol Status -->
                                 <form method="POST"

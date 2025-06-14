@@ -62,10 +62,18 @@
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 <div>
                                     <div class="flex gap-3">
-                                        <p class="text-sm text-black"><i class="fa fa-calendar mr-1"></i>
-                                            {{ $item->tanggal }}</p>
-                                        <p class="text-sm text-black"><i class="fas fa-clock mr-1"></i>
-                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}</p>
+                                        <p class="text-sm text-black">
+                                            <i class="fa fa-calendar mr-1"></i>
+                                            {{ $item->tanggal }}
+                                        </p>
+                                        <p class="text-sm text-black">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $item->pukul)->format('H:i') }}
+                                        </p>
+                                        <p class="text-sm text-black">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            {{ $item->pesertas_count }} / {{$item->kuota}}
+                                        </p>
                                     </div>
                                     <h4 class="text-lg font-semibold truncate">{{ $item->topik }}</h4>
                                     <p class="text-sm text-black break-words"><i class="fa fa-map-marker mr-1"></i>
@@ -76,18 +84,19 @@
                                         $jadwalTanggal = \Carbon\Carbon::parse($item->tanggal);
                                         $limitDaftar = $jadwalTanggal->copy()->subDay();
                                         $today = \Carbon\Carbon::today();
+                                        $sisaKuotaJadwal = (int)$item->kuota - $item->pesertas_count;
                                     @endphp
 
                                     @if (in_array($item->id, $sudahDaftar))
                                         <button disabled
                                             class="bg-gray-400 text-white px-4 py-1 rounded-md">Terdaftar</button>
-                                    @elseif ($today->gte($limitDaftar))
+                                    @elseif ($today->gte($limitDaftar) || $sisaKuotaJadwal <= 0)
                                         <button disabled
                                             class="bg-gray-400 text-white px-4 py-1 rounded-md opacity-50 cursor-not-allowed">
                                             Pendaftaran Ditutup
                                         </button>
                                     @else
-                                        <button @click="openDaftar('{{ $item->id }}')"
+                                        <button @click="openDaftar('{{ $item->id }}', {{ $sisaKuotaJadwal }})"
                                             class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded-md">Daftar</button>
                                     @endif
                                     <button
@@ -195,39 +204,34 @@
                     <input type="hidden" name="jadwal_id" :value="jadwalId">
                     <input type="hidden" name="modal" value="daftar">
 
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Peserta 1</label>
-                        <input type="text" name="pendaftar_1" value="{{ old('pendaftar_1') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Nama Lengkap Peserta">
+                    <div id="peserta-fields" class="space-y-3 max-h-64 overflow-y-auto p-1">
+                        <template x-for="(nama, index) in pendaftar" :key="index">
+                            <div>
+                                <label :for="'pendaftar_' + index" class="block text-sm font-semibold mb-1" x-text="'Peserta ' + (index + 1)"></label>
+                                <input
+                                    type="text"
+                                    :id="'pendaftar_' + index"
+                                    name="pendaftar[]"
+                                    x-model="pendaftar[index]"
+                                    class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="Masukkan Nama Lengkap Peserta">
+                            </div>
+                        </template>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Peserta 2</label>
-                        <input type="text" name="pendaftar_2" value="{{ old('pendaftar_2') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Nama Lengkap Peserta">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Peserta 3</label>
-                        <input type="text" name="pendaftar_3" value="{{ old('pendaftar_3') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Nama Lengkap Peserta">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Peserta 4</label>
-                        <input type="text" name="pendaftar_4" value="{{ old('pendaftar_4') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Nama Lengkap Peserta">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">Peserta 5</label>
-                        <input type="text" name="pendaftar_5" value="{{ old('pendaftar_5') }}"
-                            class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Masukkan Nama Lengkap Peserta">
+                    <div class="flex items-center justify-start space-x-3 pt-2">
+                        <button type="button"
+                            @click="pendaftar.push('')"
+                            :disabled="pendaftar.length >= sisaKuota"
+                            class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                            Tambah Peserta
+                        </button>
+                        <button type="button"
+                            @click="pendaftar.length > 1 ? pendaftar.pop() : null"
+                            :disabled="pendaftar.length <= 1"
+                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-yellow-600 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                            Hapus Peserta
+                        </button>
                     </div>
 
                     <div class="flex justify-end mt-6 space-x-3">
@@ -250,6 +254,8 @@
                 showDetailModal: false,
                 showDaftarModal: @json($errors->any() && old('modal') === 'daftar'),
                 jadwalId: '{{ old('jadwal_id', '') }}',
+                sisaKuota: 0,
+                pendaftar: @json(old('pendaftar', [''])),
                 selectedMonthYear: '{{ request()->get('bulan', now()->format('Y-m')) }}',
                 detailJadwal: {
                     topik: '',
@@ -263,9 +269,11 @@
                     this.detailJadwal = data;
                     this.showDetailModal = true;
                 },
-                openDaftar(id) {
+                openDaftar(id, sisa) {
                     this.showDetailModal = false;
                     this.jadwalId = id;
+                    this.sisaKuota = sisa;
+                    this.pendaftar = [''];
                     this.showDaftarModal = true;
                 },
                 selectedMonthYear: '{{ request()->get('bulan', 'terbaru') }}',
