@@ -178,6 +178,14 @@
         </div>
     </section>
     <script>
+        if (performance.getEntriesByType("navigation")[0].type === "back_forward") {
+            const successAlert = document.querySelector('[data-success-alert]');
+            if (successAlert) successAlert.remove();
+
+            const errorAlert = document.querySelector('[data-error-alert]');
+            if (errorAlert) errorAlert.remove();
+        }
+        
         document.addEventListener("alpine:init", () => {
             Alpine.data("pengajuanModal", () => ({
                 showDetailModal: false,
