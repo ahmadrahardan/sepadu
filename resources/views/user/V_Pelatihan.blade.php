@@ -88,20 +88,14 @@
                 @endif
             </div>
             <style>
-                /* Scrollbar container */
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 6px;
                 }
-
-                /* Track (latar belakang) */
                 .custom-scrollbar::-webkit-scrollbar-track {
                     background: transparent;
                 }
-
-                /* Thumb (batangnya) */
                 .custom-scrollbar::-webkit-scrollbar-thumb {
                     background-color: rgba(255, 255, 255, 0.4);
-                    /* warna putih transparan */
                     border-radius: 9999px;
                 }
             </style>
@@ -184,17 +178,13 @@
                 </div>
             </div>
             <style>
-                /* Hilangkan scrollbar tapi tetap bisa scroll */
                 .hide-scrollbar {
                     scrollbar-width: none;
-                    /* Firefox */
                     -ms-overflow-style: none;
-                    /* IE 10+ */
                 }
 
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;
-                    /* Webkit (Chrome, Safari) */
                 }
             </style>
         </div>
@@ -221,7 +211,6 @@
                     fetch(`/api/peserta/${data.id}`)
                         .then(res => res.json())
                         .then(peserta => {
-                            // transform object ke array jika perlu
                             this.pesertaList = Array.isArray(peserta) ? peserta : Object.values(
                                 peserta).filter(Boolean);
                         })

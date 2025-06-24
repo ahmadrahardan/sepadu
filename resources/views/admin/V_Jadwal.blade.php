@@ -286,22 +286,6 @@
                                 placeholder="Masukkan Kuota">
                         </div>
                         <div class="w-1/2">
-                            {{-- <label class="block mb-1 text-gray-700 font-medium">Komoditas</label>
-                            <select name="komoditas_id"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-500">
-                                <option value="">Pilih Komoditas</option>
-                                @foreach ($komoditas as $item)
-                                    <option value="{{ $item->id }}">{{ $item->komoditas }}</option>
-                                @endforeach
-                            </select> --}}
-                            {{-- <label class="block text-sm font-semibold mb-1">Komoditas</label>
-                            <select name="komoditas_id" x-model="detailJadwal.komoditas_id"
-                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                <option value="">Pilih Komoditas</option>
-                                @foreach ($komoditas as $k)
-                                    <option value="{{ $k->id }}">{{ $k->komoditas }}</option>
-                                @endforeach
-                            </select> --}}
                             <label class="block text-sm font-semibold mb-1">Komoditas</label>
                             <select name="komoditas_id"
                                 class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
@@ -452,17 +436,13 @@
                 </div>
             </div>
             <style>
-                /* Hilangkan scrollbar tapi tetap bisa scroll */
                 .hide-scrollbar {
                     scrollbar-width: none;
-                    /* Firefox */
                     -ms-overflow-style: none;
-                    /* IE 10+ */
                 }
 
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;
-                    /* Webkit (Chrome, Safari) */
                 }
             </style>
         </div>
@@ -484,7 +464,6 @@
                 showPesertaModal: false,
                 pesertaList: [],
                 selectedMonthYear: '{{ request()->get('bulan', 'terbaru') }}',
-                // selectedMonthYear: '{{ request()->get('bulan', now()->format('Y-m')) }}',
                 selectedKomoditas: '{{ request()->get('komoditas', '') }}',
                 detailJadwal: {
                     id: '{{ old('id') ?? '' }}',

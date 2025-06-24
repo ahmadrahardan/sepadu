@@ -104,11 +104,9 @@
     </section>
     <script>
         if (performance.getEntriesByType("navigation")[0].type === "back_forward") {
-            // Hapus alert login gagal
             const loginAlert = document.querySelector('[data-login-alert]');
             if (loginAlert) loginAlert.remove();
 
-            // Hapus alert validasi/form error
             const errorAlert = document.querySelector('[data-error-alert]');
             if (errorAlert) errorAlert.remove();
         }

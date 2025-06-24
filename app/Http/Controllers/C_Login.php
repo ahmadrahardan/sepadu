@@ -29,7 +29,6 @@ class C_Login extends Controller
 
         if ($admin) {
             if (Auth::guard('admin')->attempt($credentials)) {
-                // dd('Login admin berhasil');
                 $request->session()->regenerate();
                 session(['guard' => 'admin']);
                 return redirect()->route('V_Dashboard');

@@ -217,10 +217,6 @@ class C_Jadwal extends Controller
                         ]);
                     }
                 }
-
-                // Jadwal::where('id', $jadwal->id)->update([
-                //     'kuota' => $jadwal->kuota - $jumlahPeserta,
-                // ]);
             });
 
             return back()->with('success', 'Berhasil mendaftar!');

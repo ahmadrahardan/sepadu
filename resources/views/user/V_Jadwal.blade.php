@@ -118,20 +118,14 @@
                 @endif
             </div>
             <style>
-                /* Scrollbar container */
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 6px;
                 }
-
-                /* Track (latar belakang) */
                 .custom-scrollbar::-webkit-scrollbar-track {
                     background: transparent;
                 }
-
-                /* Thumb (batangnya) */
                 .custom-scrollbar::-webkit-scrollbar-thumb {
                     background-color: rgba(255, 255, 255, 0.4);
-                    /* warna putih transparan */
                     border-radius: 9999px;
                 }
             </style>

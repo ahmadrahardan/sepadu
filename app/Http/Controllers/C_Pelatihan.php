@@ -19,10 +19,8 @@ class C_Pelatihan extends Controller
         });
 
         if ($bulan === 'terbaru') {
-            // Ambil 5 riwayat pelatihan terbaru yang diikuti user
             $query->orderBy('tanggal', 'desc')->limit(5);
         } else {
-            // Filter riwayat pelatihan user berdasarkan bulan dan tahun
             $tahun = substr($bulan, 0, 4);
             $bulanAngka = substr($bulan, 5, 2);
             $query->whereYear('tanggal', $tahun)
